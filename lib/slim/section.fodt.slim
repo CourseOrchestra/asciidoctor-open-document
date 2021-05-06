@@ -1,0 +1,8 @@
+- section_style = "adoc_s sp_sl_#{level} #{get_basic_style}"
+- section_style += "sp_sn_#{(attr :sectname)}" if @attributes.key?("sectname") 
+- section_style += "sp_s_#{(attr :style)}" if @attributes.key?("style") 
+text:h text:style-name="#{section_style}" text:outline-level="#{level}" 
+  text:bookmark-start text:name="#{@id}" 
+  |#{numbered ? sectnum : ""} #{title}
+  text:bookmark-end text:name="#{@id}"
+=content

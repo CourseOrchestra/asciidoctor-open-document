@@ -1,0 +1,6 @@
+- image_block_type = 'inline'
+- utarget = target
+- image_style = "#{get_basic_style} ip_ibt_#{image_block_type}"
+- image_style += " ip_s_amp" if  !!(utarget =~ /^stem-/)
+- image_style += " ip_s_amp" if !id.nil? and @document.catalog[:refs][id].node_name == 'stem'
+include image_frame.fodt.slim

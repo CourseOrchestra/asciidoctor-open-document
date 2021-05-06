@@ -1,0 +1,12 @@
+=content_frame ("admonition")  do
+  draw:text-box
+    text:p text:style-name="adoc_ahp #{get_basic_style}"
+      =(attr :textlabel)
+    - if title?
+      text:p text:style-name="adoc_aca #{get_basic_style}" 
+        =captioned_title
+    - if content_model == :simple
+      text:p text:style-name="adoc_p #{get_basic_style}"
+        =content
+    - else
+      =content

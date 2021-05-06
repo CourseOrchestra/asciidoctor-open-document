@@ -1,0 +1,17 @@
+- index = (attr :index)
+- if index.nil?
+  text:span 
+    ="[Unresolved footnote reference]"
+- else
+  - if type == :xref
+    text:span text:style-name = "adoc_fra "
+      text:note-ref  text:note-class="footnote" text:ref-name="ftn#{index}"
+        ="#{index}"
+        
+  - else  
+    text:note text:id="ftn#{index}" text:note-class="footnote"
+      text:note-citation
+        ="#{index}"
+      text:note-body
+        text:p
+          =@text

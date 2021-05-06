@@ -1,0 +1,28 @@
+- case @type
+- when :xref
+  - if (path = attributes['path'])
+    - attrs = (append_link_constraint_attrs  role ? [%( class="#{role}")] : []).join
+    - text = text || path
+  - else
+    - attrs = role ? %( class="#{role}") : ''
+    - if @text.nil?
+      - unless @document.catalog[:refs][attr :refid].nil?
+        - text = @document.catalog[:refs][attr :refid].xreftext @document.attr :xrefstyle, nil, true
+        - text = %([#{attr :refid}]) if text.nil?
+      - else 
+        - text = %([#{attr :refid}])
+    - else
+      - text = @text
+
+  text:a (xlink:type="simple" xlink:href="##{attr :refid}" 
+    text:style-name="adoc_a xref" 
+    text:visited-style-name="adoc_a xref visited")
+    =text
+- when :link
+  text:a (xlink:type="simple" 
+    xlink:href="#{@target}" 
+    text:style-name="adoc_a link" 
+    text:visited-style-name="adoc_a link visited")
+    ="#{@text}"
+- else
+  - puts "Not implemented inline anchor: #{@type}"

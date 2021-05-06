@@ -1,0 +1,19 @@
+- table_style = "#{get_basic_style}"
+- table_style = "#{table_style} tp_o_unbreakable" if @attributes.key?("unbreakable-option")
+- table_style = "#{table_style} tp_f_#{attr :frame}" if @attributes.key?("frame")
+- table_style = "#{table_style} tp_g_#{attr :grid}" if @attributes.key?("grid")
+- if title?
+  text:p text:style-name="adoc_tca #{table_style}" 
+    text:bookmark text:name="#{id}"
+    =captioned_title
+table:table table:name = "table" table:style-name = "adoc_t #{table_style}"
+  - @columns.each do |col|
+      table:table-column table:style-name = 'adoc_tc tcp_rcw_#{(col.attr :width)}'
+  - [:head].select {|tblsec| !@rows[tblsec].empty? }.each do |tblsec|
+    table:table-header-rows
+      include table_section.fodt.slim
+  - [:foot, :body].select {|tblsec| !@rows[tblsec].empty? }.each do |tblsec|
+    include table_section.fodt.slim
+      
+
+

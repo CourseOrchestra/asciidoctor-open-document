@@ -1,0 +1,3 @@
+#!/bin/bash
+
+asciidoctor -b fodt -T /usr/local/a-od/slim "$@"

@@ -1,0 +1,10 @@
+- if title?
+  text:p text:style-name="adoc_eca #{get_basic_style}" 
+    =captioned_title
+=content_frame ("example")
+  draw:text-box
+    - if content_model == :simple
+      text:p text:style-name="adoc_p #{get_basic_style}"
+        =content
+    - else
+      =content

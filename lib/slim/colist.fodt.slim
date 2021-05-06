@@ -1,0 +1,19 @@
+- blocks.each_with_index do |item, index|
+    text:p text:style-name="adoc_colp #{get_basic_style}"
+      text:span text:style-name = "adoc_colcn " 
+        =(index + 1)
+      text:s text:c = "1"
+      =item.text
+
+/- list_style = "#{get_basic_style} olp_s_callouts"
+/text:list text:style-name="adoc_ol #{list_style}"
+/  - blocks.each_with_index do |item, index|
+/    text:list-item
+/      - set_current_list_item_style 1, ""
+/      text:p text:style-name="adoc_p olp_s_callouts #{get_basic_style}"
+/        =item.text
+/      - if item.blocks?
+/        =item.content
+/      - set_current_list_item_style -1
+/
+/

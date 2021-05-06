@@ -1,0 +1,14 @@
+- @rows[tblsec].each do |row|
+  table:table-row table:style-name="adoc_tr #{table_style}"
+    - row.each do |cell|
+      - cell_style = "#{table_style} #{tblsec} tcep_va_#{cell.attr :valign} tcep_ha_#{cell.attr :halign} tcep_s_#{cell.attr :style}"
+      table:table-cell (table:style-name="adoc_tce #{cell_style}"
+          table:number-columns-spanned = cell.colspan
+          table:number-rows-spanned= cell.rowspan )
+          - set_current_cell_style 1, cell_style
+          - if cell.style == :asciidoc
+            = cell.content
+          - else 
+            text:p text:style-name="adoc_p #{get_basic_style}"
+              = cell.text
+          - set_current_cell_style -1
