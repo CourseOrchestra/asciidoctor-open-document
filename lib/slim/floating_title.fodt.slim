@@ -1,0 +1,7 @@
+- section_style = "adoc_s sp_sl_#{level} #{get_basic_style}"
+- section_style += "sp_s_#{(attr :style)}" if @attributes.key?("style")
+text:p text:style-name="#{section_style}"
+  text:bookmark-start text:name="#{@id}" 
+  |#{title}
+  text:bookmark-end text:name="#{@id}"
+=content

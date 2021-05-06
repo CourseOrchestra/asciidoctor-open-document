@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="462.5px" preserveAspectRatio="none" style="width:1334px;height:462px;" version="1.1" viewBox="0 0 1334 462" width="1334.375px" zoomAndPan="magnify"><defs><filter height="300%" id="fg7se676rqyba" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="6.25"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="12.5" dy="12.5" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[0aac872f208ab6f5f7887aae079fb447]
+entity c1--><rect fill="#FFFFFF" filter="url(#fg7se676rqyba)" height="144.6777" style="stroke:#000000;stroke-width:4.6875;" width="500" x="54.6875" y="21.875"/><rect fill="#FFFFFF" height="31.25" style="stroke:#000000;stroke-width:4.6875;" width="46.875" x="492.1875" y="37.5"/><rect fill="#FFFFFF" height="6.25" style="stroke:#000000;stroke-width:4.6875;" width="12.5" x="485.9375" y="43.75"/><rect fill="#FFFFFF" height="6.25" style="stroke:#000000;stroke-width:4.6875;" width="12.5" x="485.9375" y="56.25"/><text fill="#000000" font-family="PT Sans" font-size="43.75" lengthAdjust="spacing" textLength="375" x="101.5625" y="124.9847">First component</text><!--MD5=[3d2111c8a0a2d14b8769ddc11704380e]
+entity c2--><rect fill="#FFFFFF" filter="url(#fg7se676rqyba)" height="144.6777" style="stroke:#000000;stroke-width:4.6875;" width="565.625" x="21.875" y="275"/><rect fill="#FFFFFF" height="31.25" style="stroke:#000000;stroke-width:4.6875;" width="46.875" x="525" y="290.625"/><rect fill="#FFFFFF" height="6.25" style="stroke:#000000;stroke-width:4.6875;" width="12.5" x="518.75" y="296.875"/><rect fill="#FFFFFF" height="6.25" style="stroke:#000000;stroke-width:4.6875;" width="12.5" x="518.75" y="309.375"/><text fill="#000000" font-family="PT Sans" font-size="43.75" lengthAdjust="spacing" textLength="440.625" x="68.75" y="378.1097">Second component</text><!--MD5=[6186517b0f979c270c1f201d839d1352]
+entity c3--><rect fill="#FFFFFF" filter="url(#fg7se676rqyba)" height="144.6777" style="stroke:#000000;stroke-width:4.6875;" width="515.625" x="775" y="150"/><rect fill="#FFFFFF" height="31.25" style="stroke:#000000;stroke-width:4.6875;" width="46.875" x="1228.125" y="165.625"/><rect fill="#FFFFFF" height="6.25" style="stroke:#000000;stroke-width:4.6875;" width="12.5" x="1221.875" y="171.875"/><rect fill="#FFFFFF" height="6.25" style="stroke:#000000;stroke-width:4.6875;" width="12.5" x="1221.875" y="184.375"/><text fill="#000000" font-family="PT Sans" font-size="43.75" lengthAdjust="spacing" textLength="390.625" x="821.875" y="253.1097">Third component</text><!--MD5=[c3a072b43622f2891aed3533be07df5d]
+link c1 to c3--><path codeLine="33" d="M555.2313,137.6641 C620.6,149.2662 691.4969,161.85 758.0688,173.6659 " fill="none" id="c1-to-c3" style="stroke:#000000;stroke-width:3.125;"/><polygon fill="#000000" points="773.9938,176.4919,748.4829,159.2738,758.6087,173.7641,744.1184,183.8899,773.9938,176.4919" style="stroke:#000000;stroke-width:3.125;"/><!--MD5=[8e063688995c833a20a474357258d152]
+link c2 to c3--><path codeLine="34" d="M587.9406,298.3678 C644.0906,288.645 702.9906,278.4456 758.8219,268.7784 " fill="none" id="c2-to-c3" style="stroke:#000000;stroke-width:3.125;"/><polygon fill="#000000" points="774.4813,266.0666,744.6362,258.5472,759.0852,268.7318,748.9006,283.1808,774.4813,266.0666" style="stroke:#000000;stroke-width:3.125;"/><!--MD5=[fd5dc68e4e8388db9856e6d2f1e4002a]
+@startuml
+skinparam dpi 300
+skinparam defaultTextAlignment center
+skinparam defaultFontName PT Sans
+
+skinparam component  {
+  borderColor black
+  backgroundColor white
+  ArrowColor black
+}
+skinparam note  {
+    borderColor black
+  backgroundColor white
+  ArrowColor black
+}
+skinparam Arrow {
+  Color black
+}
+
+left to right direction
+
+component c1 [
+First component
+]
+
+component c2 [
+Second component
+]
+
+component c3 [
+Third component
+]
+
+c1 - -> c3
+c2 - -> c3
+@enduml
+
+PlantUML version 1.2021.5beta3(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

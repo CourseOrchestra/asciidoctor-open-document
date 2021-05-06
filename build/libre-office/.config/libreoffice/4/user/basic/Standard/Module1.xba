@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Module1" script:language="StarBasic">REM  *****  BASIC  *****
+
+sub toPdf(sDocUrl as string)
+
+
+dim oDocument as object
+dim dispatcher as object
+
+dim propExp(0) as new com.sun.star.beans.PropertyValue
+
+dim sNewUrl as string
+
+if fileExists(sDocUrl) then
+	
+    oDocument = starDesktop.loadComponentFromUrl(convertToUrl(sDocUrl), &quot;_blank&quot;, 0, array())
+
+    dispatcher = createUnoService(&quot;com.sun.star.frame.DispatchHelper&quot;)
+    dispatcher.executeDispatch(oDocument.CurrentController.Frame, &quot;.uno:UpdateAllIndexes&quot;, &quot;&quot;, 0, Array())
+
+    propExp(0).Name = &quot;FilterName&quot;
+    propExp(0).Value = &quot;writer_pdf_Export&quot;
+
+    GlobalScope.BasicLibraries.LoadLibrary(&quot;Tools&quot;)
+
+    sNewUrl = GetFileNameWithoutExtension(sDocUrl) &amp; &quot;.pdf&quot;
+
+    oDocument.storeToURL(convertToUrl(sNewUrl), propExp())
+    oDocument.close(true)
+end if
+
+end sub
+</script:module>

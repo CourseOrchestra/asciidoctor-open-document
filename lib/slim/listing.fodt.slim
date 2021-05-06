@@ -1,0 +1,13 @@
+- if title?
+  text:p text:style-name="adoc_lica #{get_basic_style}" 
+    =captioned_title
+- source_lang = (attr :language) if @style == 'source'
+- listing_text = content  
+- listing_text = listing_text.gsub(/\n/, '<text:line-break/>')
+- listing_text = listing_text.gsub(/\s{16}/, '<text:s text:c="1"/>' * 16)
+- listing_text = listing_text.gsub(/\s{8}/, '<text:s text:c="1"/>' * 8)
+- listing_text = listing_text.gsub(/\s{4}/, '<text:s text:c="1"/>' * 4)
+- listing_text = listing_text.gsub(/\s{2}/, '<text:s text:c="1"/>' * 2)
+- listing_text = listing_text.gsub(/~~~~([0-9]+)~~~~/, '<text:span text:style-name="adoc_ic ">\1</text:span>')
+text:p text:style-name="adoc_lip lip_l_#{source_lang} #{get_basic_style}"
+  =listing_text

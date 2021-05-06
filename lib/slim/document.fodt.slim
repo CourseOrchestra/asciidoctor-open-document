@@ -1,0 +1,19 @@
+- $aod_tl = 0
+- $aod_current_cell_style = {$aod_tl => ""}
+- $aod_ll = 0
+- $aod_current_list_item_style = {$aod_ll => ""}
+
+|<?xml version="1.0" encoding="UTF-8"?>
+office:body(
+  xmlns:text='urn:oasis:names:tc:opendocument:xmlns:text:1.0'
+  xmlns:office='urn:oasis:names:tc:opendocument:xmlns:office:1.0'
+  xmlns:table='urn:oasis:names:tc:opendocument:xmlns:table:1.0'
+  xmlns:draw='urn:oasis:names:tc:opendocument:xmlns:drawing:1.0'
+  xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+)
+  a-od-params
+    - @attributes.each do |attr, value|
+      attribute name = "#{attr}" value = "#{value}"
+  office:text text:use-soft-page-breaks='true'
+    =content

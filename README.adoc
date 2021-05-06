@@ -1,0 +1,211 @@
+= Open Document backend for Asciidoctor
+:xrefstyle: short
+:sectnums:
+:stem:
+:mathematical-format: svg
+:doctype: book
+
+== About
+
+Asciidoctor-Open-Document backend allows to convert asciidoc documentation into fodt (plain Open Document) format.
+
+Fodt file may be converted with Libre Office into pdf, odt, docx, doc etc.
+
+Backend can be extended in the following ways:
+
+* custom fodt template. Allows to customize paragraph properties, text properties, page properties (orientation, header, footer and like), list properties, table properties. Custom fodt template can contain title page or any before/after contents;
+* custom slim templates;
+* custom xml-contents preprocessor;
+* custom Open Document style setters.
+
+== Usage
+
+=== With docker
+
+* Download and unzip project, manually or with:
++
+----
+wget https://github.com/CourseOrchestra/asciidoctor-open-document/archive/refs/heads/dev.zip -O temp.zip && unzip temp.zip && rm temp.zip
+----
+
+* Build docker image
++
+----
+build/build_image.sh
+----
+
+* Convert adoc to prelimenary Open Document content file
++
+The following steps assume that asciidoc file `test.adoc` is in the `/my-adoc` directory. As a result we want to get `test.fodt` and `test.pdf`.
++
+----
+docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
+----
++
+Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
+
+* Convert prelimenary Open Document content file to fodt
++
+----
+docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
+----
++
+Here the custom library is used. It contains examples of custom features: positioning equation number, paragraph alignment role, code highlighting, positioning admonitions inside of the list element.
+
+* Convert fodt to pdf
++
+----
+cp build/libre-office/.config /my-adoc -r
+docker run --rm -v /my-adoc:/home/alpine woahbase/alpine-libreoffice:x86_64 soffice --headless "macro:///Standard.Module1.toPdf(/home/alpine/test.fodt)"
+----
++
+`.config` contains Libre Office configuration settings with  macro `toPdf`. This macro  updates all indexes and outputs pdf. The folder should be in the user home directory, in this case `/home/alpine`
+
+=== Detailed
+
+Convertion consists of 2 steps.
+
+. Convert adoc to prelimenary contents file
+. Convert prelimenary content file to fodt
+
+==== Convert adoc to prelimenary contents file
+
+Convertion to prelimenary contents file is done by the standard `Asciidoctor` command with a slim template (slim folder of a source code).
+
+----
+asciidoctor -T [path to slim] -b fodt asciidoc_file.adoc
+----
+
+In docker file there is a wrapper `a-od-pre`, use it like a normal `asciidoctor` command. It just sets slim template and backend.
+
+
+==== Convert prelimenary content file to fodt
+
+Conversion to final fodt file is done with the `asciidoctor-od.rb` script.
+
+----
+ruby [path to script]/a-od-producer.rb -i [prelimenary content file] -o [final file] -c [custom process library] -f [fodt template]
+----
+
+In docker file there is a wrapper `a-od-out`. It just runs ruby with `a-od-producer.rb`.
+
+== How does it work
+
+:leveloffset: + 1
+
+== Setting predefined styles
+
+"`You should create documentation in Word, RIGHT WAY`". 
+
+MS Word as well as Open Office suggest that each element should have only one style. That greatly contradicts to the concept of cascaded styles (CSS), but makes things easiar. If we can define such a unique style for text or paragraph, then we need nothing more.
+
+It is always the case with list styles, but sometimes with text or less often paragraph styles.
+
+StyleSubstiture just sets the predefined style for certain elements.
+
+Here we may also do any xml preprocessing. Change the order of elements, insert custom elements. As we do it with xml, such preprocessing is extremely fast.
+
+To extend setting predifined styles routine just make a descendant of `StyleSubstitutor` in your custom library.
+
+== `Automatic styles` calculation
+
+If you add you custom formatting to any paragraph Open Office simply generates `automatic style` that references parent (predefined style) and adds properties. Thee properties add or replace predefined style formatting.
+
+Templating technology can't generate styles, but this converter adds formatting hints to the name of the style.  `AutoStyleSetter` transforms this hint into `automatic styles`.
+
+`BasicPropSetSorter` chooses the right porperty setter class and property setter class sets parent (predefined) class and additional properties.
+
+To extend style substitution just inherit from any propery setter class, for example `BasicBlockImageParagraph`. Or from the basic sorter class `BasicPropSetSorter`.
+
+All methods should start with `h_`.
+
+
+:leveloffset!:
+
+=== Customizing fodt template
+
+* Only part of template that is situated between paragraphs, containing text `<asciidoctor-od>`, is replaced with the contents of the asciidoctor file. This allows to make, for example, title pages.
+* Asciidoc document attributes like title, subtitle, author etc. can be used via Open Document variable-set fields. The contents of these fields is taken from asciidoc document attributes. For now only text variable-set fields are supported.
+* Out of the box converter supports only two page styles (for portrait and landscape). This can be easily extended by custom converstion library.
+
+== Not implemented
+
+=== Not implemented elements
+
+----
+audio
+dlist
+inline_break
+inline_button
+inline_indexterm
+inline_kbd
+inline_menu
+listing
+open
+page_break
+pass
+quote
+section (no special processing for special sections)
+sidebar
+thematic_break
+toc (for now relied on fodt template)
+verse
+video
+----
+
+=== Backend variables
+
+Backend variables are set as global variables. They start with `def` prefix.
+
+They can now be overriden only in custom library, but the ability to set them as document attributes is in the TODO-list.
+
+:leveloffset: + 1
+
+== Table properties
+
+* `frame` and `grid` are implemented only if (1) both are none, (2) `frame` is `topbot` and `grid` is `rows`, (3) `frame` is `sides` and `grid` is `cols`
+* `float`
+* `width` (always `100%`)
+* `options = autowidth`
+
+
+== Frame usage
+
+Admonitions and examples are created with the help of a frame. 
+
+Frame width in Opend Document format can't be defined in relation to paragraph, only paragraph area. So in lists frames will start from the left page margin.
+
+As frames are aligned to right, it is possible to introduce some attribute that would decrease frame width. The example is in the `a-od-my` custom library of this project: list-level1-admonition.
+
+IMPORTANT: Frames don't flow across pages
+
+
+:leveloffset!:
+
+== Additional features
+
+:leveloffset: + 1
+
+== Image attributes
+
+* rectfit -- dimensions to fit image in like `100x50mm`. Only mm unit is supported
+* srcdpi -- resolution of the source image. Usually when we add something to our diagram (like new process to the process diagram), the dimensions of the image change, but resolution doesn't change. Default -- 100 dpi.
+* svgunit -- units, in which svg dimensions are defined
+
+This attribute doesn't eliminate the need to have a set of image for each resolution, but for simple situation it is quite enough.
+
+If `rectfit` is not defined in inline images it is assumed from the following attributes:
+
+* def_100_percent_mm -- width
+* def_inline_height_mm -- height
+
+== Page orientation
+
+Page orientation is regulated by special roles: portrait, landscape.
+
+The role can be applied to paragraph, section and caption (table, figure, list, example) elements.
+
+NOTE: Page orientation roles switch orientation for all elements to the end of the document. It can be switched back starting at any supported element
+
+
+:leveloffset!:

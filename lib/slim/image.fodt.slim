@@ -1,0 +1,12 @@
+- image_block_type = 'block'
+- utarget = (attr :target)
+- image_style = "#{get_basic_style} ip_ibt_#{image_block_type}"
+- image_style += " ip_s_amp" if  !!(utarget =~ /^stem-/)
+- image_style += " ip_s_amp" if !id.nil? and @document.catalog[:refs][id].node_name == 'stem'
+text:p text:style-name="adoc_bip #{image_style}"
+  - unless id.nil?
+    text:bookmark text:name="#{id}"
+  include image_frame.fodt.slim
+- if title?
+  text:p text:style-name="adoc_ica #{image_style}" 
+    =captioned_title

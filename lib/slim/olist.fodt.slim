@@ -1,0 +1,14 @@
+- list_style = "#{get_basic_style} olp_s_#{style}"
+- if title?
+  text:p text:style-name="adoc_lca #{list_style}" 
+    text:bookmark text:name="#{id}"
+    =captioned_title
+text:list text:style-name="adoc_ol #{list_style}"
+  - items.each_with_index do |item, index|
+    text:list-item
+      - set_current_list_item_style 1, ""
+      text:p text:style-name="adoc_p #{get_basic_style}"
+        =item.text
+      - if item.blocks?
+        =item.content
+      - set_current_list_item_style -1
