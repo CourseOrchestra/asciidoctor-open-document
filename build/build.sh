@@ -16,8 +16,8 @@ build/build_image.sh
 docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od bash -c 'echo $PATH'
 
 echo build README.adoc
-build/build_readme.sh
-docker run --rm -v $(pwd):/documents/ asciidoctor/docker-asciidoctor asciidoctor README.adoc -o target/out/index.html
+docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od build/build_readme.sh
+docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor README.adoc -o target/out/index.html
 
 echo make fodt
 docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
