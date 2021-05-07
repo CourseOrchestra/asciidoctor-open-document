@@ -10,17 +10,17 @@ cp test/test_cases/stew target -r
 ls
 
 
-# build image
+echo build image
 build/build_image.sh
 
 docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od bash -c 'echo $PATH'
 
-# build README.adoc
+echo build README.adoc
 build/build_readme.sh
-docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor README.adoc -o target/out/index.html
+docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor/docker-asciidoctor asciidoctor README.adoc -o target/out/index.html
 
-# make fodt
-#docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
+echo make fodt
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
 #docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
 #
 ## convert to pdf 
