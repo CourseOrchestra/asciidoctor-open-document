@@ -1880,14 +1880,7 @@
      <text:index-title text:style-name="Sect1" text:name="Table of Contents1_Head">
       <text:p text:style-name="Contents_20_Heading">Table of contents</text:p>
      </text:index-title>
-     <text:p text:style-name="P1"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc228_611620482" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">&lt;asciidoc-od&gt; A Template Section 1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P29"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11405_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P30"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11407_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1.1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P31"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11409_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1.1.1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P32"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11411_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1.1.1.1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P33"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11413_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1.1.1.1.1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P34"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11415_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1.1.1.1.1.1<text:tab/>1</text:a></text:p>
-     <text:p text:style-name="P35"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc11417_4172187942" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Section 1.1.1.1.1.1.1.1<text:tab/>1</text:a></text:p>
+     <text:p text:style-name="P1"><text:a xlink:type="simple" xlink:href="#__RefHeading___Toc228_611620482" text:style-name="Index_20_Link" text:visited-style-name="Index_20_Link">Please update table of contents</text:a></text:p>
     </text:index-body>
    </text:table-of-content>
    <text:p text:style-name="Text_20_body"/>
