@@ -8,11 +8,12 @@ mkdir target/out
 cp test/test_cases/stew target -r
 
 ls
-docker run -v --rm $(pwd):/documents/ -w /documents/ asciidoctor-od echo $PATH
 
 
 # build image
 build/build_image.sh
+
+docker run -v --rm $(pwd):/documents/ -w /documents/ asciidoctor-od echo $PATH
 
 # build README.adoc
 build/build_readme.sh
