@@ -4,15 +4,15 @@ cd ..
 
 rm target -rf
 mkdir target
-cp test/test_cases/stew target -r
-
-# build README.adoc
-build/build_readme.sh
 mkdir target/out
-docker run -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor README.adoc -o target/out/index.html
+cp test/test_cases/stew target -r
 
 # build image
 build/build_image.sh
+
+# build README.adoc
+build/build_readme.sh
+docker run -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor README.adoc -o target/out/index.html
 
 # make fodt
 docker run -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
