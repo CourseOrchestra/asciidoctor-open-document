@@ -8,7 +8,8 @@ mkdir target/out
 cp test/test_cases/stew target -r
 
 ls
-echo $PATH
+docker run -v --rm $(pwd):/documents/ -w /documents/ asciidoctor-od echo $PATH
+
 
 # build image
 build/build_image.sh
