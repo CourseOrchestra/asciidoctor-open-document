@@ -19,7 +19,7 @@ docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a
 docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
 
 echo convert to pdf 
-cp build/libre-office/.config target -r
+#cp build/libre-office/.config target -r
 #docker run --rm -v $(pwd)/target:/home/alpine woahbase/alpine-libreoffice:x86_64 env 
 docker run -e "HOME=/home/alpine" --rm -v $(pwd)/target:/home/alpine woahbase/alpine-libreoffice:x86_64 soffice --headless "macro:///Standard.Module1.toPdf(/home/alpine/stew/test.fodt)"
 cp target/stew/test.pdf target/out
