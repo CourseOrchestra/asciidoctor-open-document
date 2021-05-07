@@ -1,0 +1,22 @@
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: build 
+        run: |
+          build/build.sh
+      - name: GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v2.3.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          build_dir: target/out
+
+
+          
+        
+      
