@@ -8,6 +8,7 @@ mkdir target/out
 cp test/test_cases/stew target -r
 
 ls
+echo $PATH
 
 # build image
 build/build_image.sh
