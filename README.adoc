@@ -7,15 +7,23 @@
 
 == About
 
-Asciidoctor-Open-Document backend allows to convert asciidoc documentation into fodt (plain Open Document) format.
+Open Document backend for Asciidoctor allows to convert asciidoc documentation into fodt (plain Open Document) format. It relies on https://docs.asciidoctor.org/home/[Asciidoctor project].
 
-Fodt file may be converted with Libre Office into pdf, odt, docx, doc etc.
+Fodt file may be converted with https://www.libreoffice.org/[LibreOffice] into pdf, odt, docx, doc etc.
 
-Backend can be extended in the following ways:
+Examples (built automatically as a part of CI routine):
 
-* custom fodt template. Allows to customize paragraph properties, text properties, page properties (orientation, header, footer and like), list properties, table properties. Custom fodt template can contain title page or any before/after contents;
+* https://github.com/CourseOrchestra/asciidoctor-open-document/blob/main/test/test_cases/stew/test.adoc[source asciidoc file];
+* https://courseorchestra.github.io/asciidoctor-open-document/test.fodt[fodt file] (indexes are not updated);
+* https://courseorchestra.github.io/asciidoctor-open-document/test.odt[odt file];
+* https://courseorchestra.github.io/asciidoctor-open-document/test.pdf[pdf file];
+* https://courseorchestra.github.io/asciidoctor-open-document/test.docx[docx file] -- yes, sometimes messy, but generally not so bad and there is always a possibility to simplify conversion rules and tailor them to the needs of the exact project.
+
+The asciidoctor-open-document backend can be extended in the following ways:
+
+* custom fodt template. Allows to customize paragraph properties, text properties, page properties (orientation, header, footer and like), list properties, table properties. Custom fodt template can contain title page or any before/after content;
 * custom slim templates;
-* custom xml-contents preprocessor;
+* custom xml-content preprocessor;
 * custom Open Document style setters.
 
 == Usage
@@ -34,7 +42,7 @@ wget https://github.com/CourseOrchestra/asciidoctor-open-document/archive/refs/h
 build/build_image.sh
 ----
 
-* Convert adoc to prelimenary Open Document content file
+* Convert adoc to preliminary Open Document content file
 +
 The following steps assume that asciidoc file `test.adoc` is in the `/my-adoc` directory. As a result we want to get `test.fodt` and `test.pdf`.
 +
@@ -44,7 +52,7 @@ docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-pre -r asciidoctor-ma
 +
 Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
 
-* Convert prelimenary Open Document content file to fodt
+* Convert preliminary Open Document content file to fodt
 +
 ----
 docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
@@ -52,34 +60,55 @@ docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-o
 +
 Here the custom library is used. It contains examples of custom features: positioning equation number, paragraph alignment role, code highlighting, positioning admonitions inside of the list element.
 
-* Convert fodt to pdf
+* Convert fodt to odt, pdf, docx etc.
 +
-----
-cp build/libre-office/.config /my-adoc -r
-docker run --rm -v /my-adoc:/home/alpine woahbase/alpine-libreoffice:x86_64 soffice --headless "macro:///Standard.Module1.toPdf(/home/alpine/test.fodt)"
-----
+For deployment in this project https://github.com/hannesdejager/docker-libreoffice-api[LibreOffice Headless with API in Docker] is used (<<build>>). It contains LibreOffice and https://github.com/dagwieers/unoconv[Universal Office Converter (unoconv)]. Unoconv updates indexes (table of contents, figure index, table index and so on) before converting.
 +
-`.config` contains Libre Office configuration settings with  macro `toPdf`. This macro  updates all indexes and outputs pdf. The folder should be in the user home directory, in this case `/home/alpine`
+.build/build.sh (LibreOffice conversion part)
+[[build]]
+----
+echo convert to pdf, odt, docx
+docker run -d --name libreoffice -p 8100:8100 hdejager/libreoffice-api
+sleep 3
+docker cp target/stew/test.fodt libreoffice:/tmp/test.fodt
+docker exec -i libreoffice unoconv --connection \
+    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
+    -f pdf /tmp/test.fodt
+docker exec -i libreoffice unoconv --connection \
+    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
+    -f odt /tmp/test.fodt
+docker exec -i libreoffice unoconv --connection \
+    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
+    -f docx /tmp/test.fodt
+docker cp libreoffice:/tmp/test.odt target/stew
+docker cp libreoffice:/tmp/test.pdf target/stew
+docker cp libreoffice:/tmp/test.docx target/stew
+docker kill libreoffice
+docker rm libreoffice
+cp target/stew/test.pdf target/out
+cp target/stew/test.odt target/out
+cp target/stew/test.docx target/out
+----
 
-=== Detailed
+=== As a ruby script
 
-Convertion consists of 2 steps.
+Conversion consists of 2 steps.
 
-. Convert adoc to prelimenary contents file
-. Convert prelimenary content file to fodt
+. Convert adoc to preliminary content file
+. Convert preliminary content file to fodt
 
-==== Convert adoc to prelimenary contents file
+==== Convert adoc to preliminary content file
 
-Convertion to prelimenary contents file is done by the standard `Asciidoctor` command with a slim template (slim folder of a source code).
+Conversion to preliminary content file is done by the standard `asciidoctor` command with a slim template (slim folder of a source code).
 
 ----
 asciidoctor -T [path to slim] -b fodt asciidoc_file.adoc
 ----
 
-In docker file there is a wrapper `a-od-pre`, use it like a normal `asciidoctor` command. It just sets slim template and backend.
+There is a wrapper `a-od-pre` in docker image. Use it like a normal `asciidoctor` command. It just sets slim template and backend.
 
 
-==== Convert prelimenary content file to fodt
+==== Convert preliminary content file to fodt
 
 Conversion to final fodt file is done with the `asciidoctor-od.rb` script.
 
@@ -87,7 +116,7 @@ Conversion to final fodt file is done with the `asciidoctor-od.rb` script.
 ruby [path to script]/a-od-producer.rb -i [prelimenary content file] -o [final file] -c [custom process library] -f [fodt template]
 ----
 
-In docker file there is a wrapper `a-od-out`. It just runs ruby with `a-od-producer.rb`.
+There is a wrapper `a-od-out` in docker image. It just runs ruby with `a-od-producer.rb`.
 
 == How does it work
 
@@ -97,15 +126,15 @@ In docker file there is a wrapper `a-od-out`. It just runs ruby with `a-od-produ
 
 "`You should create documentation in Word, RIGHT WAY`". 
 
-MS Word as well as Open Office suggest that each element should have only one style. That greatly contradicts to the concept of cascaded styles (CSS), but makes things easiar. If we can define such a unique style for text or paragraph, then we need nothing more.
+MS Word as well as Open Office suggest that each element should have only one style. That greatly contradicts to the concept of cascaded styles (CSS), but makes things easier. If we can define such a unique style for text or paragraph, then we need nothing more.
 
 It is always the case with list styles, but sometimes with text or less often paragraph styles.
 
-StyleSubstiture just sets the predefined style for certain elements.
+StyleSubstitor just sets the predefined style for certain elements.
 
 Here we may also do any xml preprocessing. Change the order of elements, insert custom elements. As we do it with xml, such preprocessing is extremely fast.
 
-To extend setting predifined styles routine just make a descendant of `StyleSubstitutor` in your custom library.
+To extend setting predefined styles routine just make a descendant of `StyleSubstitutor` in your custom library.
 
 == `Automatic styles` calculation
 
@@ -113,9 +142,9 @@ If you add you custom formatting to any paragraph Open Office simply generates `
 
 Templating technology can't generate styles, but this converter adds formatting hints to the name of the style.  `AutoStyleSetter` transforms this hint into `automatic styles`.
 
-`BasicPropSetSorter` chooses the right porperty setter class and property setter class sets parent (predefined) class and additional properties.
+`BasicPropSetSorter` chooses the right property setter class and property setter class sets parent (predefined) class and additional properties.
 
-To extend style substitution just inherit from any propery setter class, for example `BasicBlockImageParagraph`. Or from the basic sorter class `BasicPropSetSorter`.
+To extend style substitution just inherit from any property setter class, for example `BasicBlockImageParagraph`. Or from the basic sorter class `BasicPropSetSorter`.
 
 All methods should start with `h_`.
 
@@ -124,9 +153,9 @@ All methods should start with `h_`.
 
 === Customizing fodt template
 
-* Only part of template that is situated between paragraphs, containing text `<asciidoctor-od>`, is replaced with the contents of the asciidoctor file. This allows to make, for example, title pages.
-* Asciidoc document attributes like title, subtitle, author etc. can be used via Open Document variable-set fields. The contents of these fields is taken from asciidoc document attributes. For now only text variable-set fields are supported.
-* Out of the box converter supports only two page styles (for portrait and landscape). This can be easily extended by custom converstion library.
+* Only part of template that is situated between paragraphs, containing text `<asciidoctor-od>`, is replaced with the content of the asciidoctor file. This allows to make, for example, title pages.
+* Asciidoc document attributes like title, subtitle, author etc. can be used via Open Document variable-set fields. The content of these fields is taken from asciidoc document attributes. For now only text variable-set fields are supported.
+* Out of the box converter supports only two page styles (for portrait and landscape). This can be easily extended by custom conversion library.
 
 == Not implemented
 
@@ -173,7 +202,7 @@ They can now be overriden only in custom library, but the ability to set them as
 
 Admonitions and examples are created with the help of a frame. 
 
-Frame width in Opend Document format can't be defined in relation to paragraph, only paragraph area. So in lists frames will start from the left page margin.
+Frame width in Open Document format can't be defined in relation to paragraph, only paragraph area. So in lists frames will start from the left page margin.
 
 As frames are aligned to right, it is possible to introduce some attribute that would decrease frame width. The example is in the `a-od-my` custom library of this project: list-level1-admonition.
 

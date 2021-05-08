@@ -86,22 +86,22 @@ $def_ntable_top_margin = "0.1cm"
 $def_ntable_bottom_margin = "0.1cm"
 
 =begin
-tag::algrorythm_descritption[]
+tag::algorithm_description[]
 == Setting predefined styles
 
 "`You should create documentation in Word, RIGHT WAY`". 
 
-MS Word as well as Open Office suggest that each element should have only one style. That greatly contradicts to the concept of cascaded styles (CSS), but makes things easiar. If we can define such a unique style for text or paragraph, then we need nothing more.
+MS Word as well as Open Office suggest that each element should have only one style. That greatly contradicts to the concept of cascaded styles (CSS), but makes things easier. If we can define such a unique style for text or paragraph, then we need nothing more.
 
 It is always the case with list styles, but sometimes with text or less often paragraph styles.
 
-StyleSubstiture just sets the predefined style for certain elements.
+StyleSubstitor just sets the predefined style for certain elements.
 
 Here we may also do any xml preprocessing. Change the order of elements, insert custom elements. As we do it with xml, such preprocessing is extremely fast.
 
-To extend setting predifined styles routine just make a descendant of `StyleSubstitutor` in your custom library.
+To extend setting predefined styles routine just make a descendant of `StyleSubstitutor` in your custom library.
 
-end::algrorythm_descritption[]
+end::algorithm_description[]
 =end
 
 class StyleSubstitutor
@@ -166,20 +166,20 @@ class StyleSubstitutor
 end
 
 =begin
-tag::algrorythm_descritption[]
+tag::algorithm_description[]
 == `Automatic styles` calculation
 
 If you add you custom formatting to any paragraph Open Office simply generates `automatic style` that references parent (predefined style) and adds properties. Thee properties add or replace predefined style formatting.
 
 Templating technology can't generate styles, but this converter adds formatting hints to the name of the style.  `AutoStyleSetter` transforms this hint into `automatic styles`.
 
-`BasicPropSetSorter` chooses the right porperty setter class and property setter class sets parent (predefined) class and additional properties.
+`BasicPropSetSorter` chooses the right property setter class and property setter class sets parent (predefined) class and additional properties.
 
-To extend style substitution just inherit from any propery setter class, for example `BasicBlockImageParagraph`. Or from the basic sorter class `BasicPropSetSorter`.
+To extend style substitution just inherit from any property setter class, for example `BasicBlockImageParagraph`. Or from the basic sorter class `BasicPropSetSorter`.
 
 All methods should start with `h_`.
 
-end::algrorythm_descritption[]
+end::algorithm_description[]
 =end
 
 class AutoStyleSetter
@@ -542,7 +542,7 @@ class BasicImageFrame < BasicHelper
     end
 
     if !!(@snr =~ / ip_s_amp /)
-      # maximum as a square with max pecent for formulae looks quite logical 
+      # maximum as a square with max percent for formulae looks quite logical 
       # at least when writing this comment
         @snr += "ip_fr_#{$def_100_percent_mm}x#{$def_100_percent_mm}mm ip_sd_#{$def_stem_dpi} "
     end
@@ -608,11 +608,11 @@ class BasicImageFrame < BasicHelper
   end
   def h_style_vertical_pos
     @sd["style:graphic-properties"]["style:vertical-pos"] = 
-      "middle" # if !!(@snr =~ / ip_ibt_inline /)
+      "middle"
   end
   def h_style_vertical_rel
     @sd["style:graphic-properties"]["style:vertical-rel"] = 
-      "text"  # if !!(@snr =~ / ip_ibt_inline /)
+      "text"
   end
 end
 
@@ -651,7 +651,7 @@ tag::notimplemented[]
 
 Admonitions and examples are created with the help of a frame. 
 
-Frame width in Opend Document format can't be defined in relation to paragraph, only paragraph area. So in lists frames will start from the left page margin.
+Frame width in Open Document format can't be defined in relation to paragraph, only paragraph area. So in lists frames will start from the left page margin.
 
 As frames are aligned to right, it is possible to introduce some attribute that would decrease frame width. The example is in the `a-od-my` custom library of this project: list-level1-admonition.
 
