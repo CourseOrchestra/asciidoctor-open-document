@@ -40,6 +40,7 @@ docker rm libreoffice
 cp target/stew/test.pdf target/out
 cp target/stew/test.odt target/out
 cp target/stew/test.docx target/out
+cp target/stew/test.fodt target/out
 #end::pdf_convert[]
 
 echo test a-od producer
