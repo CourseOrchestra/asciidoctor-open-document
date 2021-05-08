@@ -12,7 +12,7 @@ build/build_image.sh
 
 echo build README.adoc
 #docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od build/build_readme.sh
-docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor README.adoc -o target/out/index.html
+docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor docs/a-od-basic-doc.adoc -o target/out/index.html
 
 echo make fodt
 docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
