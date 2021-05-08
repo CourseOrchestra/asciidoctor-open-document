@@ -88,6 +88,7 @@ docker rm libreoffice
 cp target/stew/test.pdf target/out
 cp target/stew/test.odt target/out
 cp target/stew/test.docx target/out
+cp target/stew/test.fodt target/out
 ----
 
 === As a ruby script

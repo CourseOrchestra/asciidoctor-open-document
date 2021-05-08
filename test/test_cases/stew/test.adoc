@@ -22,6 +22,12 @@ Another preamble paragraph.
 
 Some dedication
 
+中文文字
+
+Texte français
+
+ein Löwe
+
 Русский текст
 
 == Links
