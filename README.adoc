@@ -61,33 +61,10 @@ Here the custom library is used. It contains examples of custom features: positi
 * Convert fodt to odt, pdf, docx etc.
 +
 For deployment in this project https://github.com/hannesdejager/docker-libreoffice-api[LibreOffice Headless with API in Docker] is used (<<build>>). It contains LibreOffice and https://github.com/dagwieers/unoconv[Universal Office Converter (unoconv)]. Unoconv updates indexes (table of contents, figure index, table index and so on) before converting.
-+
-.build/build.sh (LibreOffice conversion part)
-[[build]]
-----
-echo convert to pdf, odt, docx
-docker run -d --name libreoffice -p 8100:8100 hdejager/libreoffice-api
-sleep 3
-docker cp target/stew/test.fodt libreoffice:/tmp/test.fodt
-docker exec -i libreoffice unoconv --connection \
-    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
-    -f pdf /tmp/test.fodt
-docker exec -i libreoffice unoconv --connection \
-    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
-    -f odt /tmp/test.fodt
-docker exec -i libreoffice unoconv --connection \
-    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
-    -f docx /tmp/test.fodt
-docker cp libreoffice:/tmp/test.odt target/stew
-docker cp libreoffice:/tmp/test.pdf target/stew
-docker cp libreoffice:/tmp/test.docx target/stew
-docker kill libreoffice
-docker rm libreoffice
-cp target/stew/test.pdf target/out
-cp target/stew/test.odt target/out
-cp target/stew/test.docx target/out
-cp target/stew/test.fodt target/out
-----
+
+You can look at https://github.com/CourseOrchestra/asciidoctor-open-document/blob/main/build/build.sh[build.sh] for the example. 
+
+//end::usage[]
 
 === As a ruby script
 
