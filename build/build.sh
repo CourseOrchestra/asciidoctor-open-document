@@ -11,7 +11,7 @@ echo build image
 build/build_image.sh
 
 echo build README.adoc
-docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od build/build_readme.sh
+#docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od build/build_readme.sh
 docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor README.adoc -o target/out/index.html
 
 echo make fodt
