@@ -1,102 +1,13 @@
 = Open Document backend for Asciidoctor
-:xrefstyle: short
-:sectnums:
-:stem:
-:mathematical-format: svg
-:doctype: book
+:toc: left
 
 == About
 
-Open Document backend for Asciidoctor allows to convert asciidoc documentation into fodt (plain Open Document) format. It relies on https://docs.asciidoctor.org/home/[Asciidoctor project].
-
-Fodt file may be converted with https://www.libreoffice.org/[LibreOffice] into pdf, odt, docx, doc etc.
-
-Examples (built automatically as a part of CI routine):
-
-* https://github.com/CourseOrchestra/asciidoctor-open-document/blob/main/test/test_cases/stew/test.adoc[source asciidoc file];
-* https://courseorchestra.github.io/asciidoctor-open-document/test.fodt[fodt file] (indexes are not updated);
-* https://courseorchestra.github.io/asciidoctor-open-document/test.odt[odt file];
-* https://courseorchestra.github.io/asciidoctor-open-document/test.pdf[pdf file];
-* https://courseorchestra.github.io/asciidoctor-open-document/test.docx[docx file] -- yes, sometimes messy, but generally not so bad and there is always a possibility to simplify conversion rules and tailor them to the needs of the exact project.
-
-The asciidoctor-open-document backend can be extended in the following ways:
-
-* custom fodt template. Allows to customize paragraph properties, text properties, page properties (orientation, header, footer and like), list properties, table properties. Custom fodt template can contain title page or any before/after content;
-* custom slim templates;
-* custom xml-content preprocessor;
-* custom Open Document style setters.
+include::../README.adoc[tag=about]
 
 == Usage
 
-=== With docker
-
-* Download and unzip project, manually or with (only Linux):
-+
-----
-wget https://github.com/CourseOrchestra/asciidoctor-open-document/archive/refs/heads/main.zip -O temp.zip && unzip temp.zip && rm temp.zip
-----
-
-* Build docker image
-+
-----
-build/build_image.sh
-----
-
-* Convert adoc to preliminary Open Document content file
-+
-The following steps assume that asciidoc file `test.adoc` is in the `/my-adoc` directory. As a result we want to get `test.fodt` and `test.pdf`.
-+
-----
-docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
-----
-+
-Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
-
-* Convert preliminary Open Document content file to fodt
-+ 
-----
-docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
-----
-+
-Here the custom library is used. It contains examples of custom features: positioning equation number, paragraph alignment role, code highlighting, positioning admonitions inside of the list element.
-
-* Convert fodt to odt, pdf, docx etc.
-+
-For deployment in this project https://github.com/hannesdejager/docker-libreoffice-api[LibreOffice Headless with API in Docker] is used (<<build>>). It contains LibreOffice and https://github.com/dagwieers/unoconv[Universal Office Converter (unoconv)]. Unoconv updates indexes (table of contents, figure index, table index and so on) before converting.
-+
-.build/build.sh (LibreOffice conversion part)
-[[build]]
-----
-include::../build/build.sh[tag=pdf_convert]
-----
-
-=== As a ruby script
-
-Conversion consists of 2 steps.
-
-. Convert adoc to preliminary content file
-. Convert preliminary content file to fodt
-
-==== Convert adoc to preliminary content file
-
-Conversion to preliminary content file is done by the standard `asciidoctor` command with a slim template (slim folder of a source code).
-
-----
-asciidoctor -T [path to slim] -b fodt asciidoc_file.adoc
-----
-
-There is a wrapper `a-od-pre` in docker image. Use it like a normal `asciidoctor` command. It just sets slim template and backend.
-
-
-==== Convert preliminary content file to fodt
-
-Conversion to final fodt file is done with the `asciidoctor-od.rb` script.
-
-----
-ruby [path to script]/a-od-producer.rb -i [prelimenary content file] -o [final file] -c [custom process library] -f [fodt template]
-----
-
-There is a wrapper `a-od-out` in docker image. It just runs ruby with `a-od-producer.rb`.
+include::../README.adoc[tag=usage]
 
 == How does it work
 
