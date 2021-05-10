@@ -4,7 +4,7 @@ require_relative "../lib/a-od-producer/misc.rb"
 class TestMiscMethods < Minitest::Test
   describe "Method measurement_to_mm " do
     it "should correctly calculate measurement in mm" do
-      assert_equal MiscMethods.measurement_to_mm(1, "mm").round(3), 1.000
+      assert_equal MiscMethods.measurement_to_mm(2, "mm").round(3), 1.000
       assert_equal MiscMethods.measurement_to_mm(1, "cm").round(3), 10.000
       assert_equal MiscMethods.measurement_to_mm(1, "pt").round(3), 0.353
       assert_equal MiscMethods.measurement_to_mm(1, "pc").round(3), 4.233
