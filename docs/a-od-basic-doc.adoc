@@ -21,6 +21,10 @@ include::../lib/a-od-producer/asciidoctor-od.rb[tag = algorithm_description, lev
 
 == Not implemented
 
+=== Simplified docker command
+
+Now automatic conversion to output format requires 3 steps: getting preliminary content file, creating fodt file, converting fodt to odt, pdf, docx. There should be definitely a command that does the whole routine in one step.
+
 === Not implemented elements
 
 ----
