@@ -130,7 +130,7 @@ class MyPreprocessor < StyleSubstitutor
          unknown_lexer = true if e.message.strip == 'unknown lexer'
       end
       if unknown_lexer
-        puts "Warning: #{e.message} #{language}"
+        puts "INFO: #{e.message} #{language}"
         next
       end 
       # replace callout with a number of `~` for them to be interpreted as a chunk

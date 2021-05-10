@@ -11,7 +11,6 @@ echo build image
 build/build_image.sh
 
 echo build README.adoc
-#docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od build/build_readme.sh
 docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor docs/a-od-basic-doc.adoc -o target/out/index.html
 
 echo make fodt
@@ -48,4 +47,23 @@ docker run --rm -v $(pwd):/documents/ asciidoctor-od ruby test/test.rb  | tee ta
 
 echo test final fodt
 docker run --rm -v $(pwd):/documents/ asciidoctor-od ruby test/test_fodt.rb  | tee target/result_test.log
+
+if grep -q "[1-9][0-9]* failures" target/unit_test.log; then
+    echo test.rb failed
+    exit 1
+fi
+
+if test -f target/out/test.odt; then
+    echo odt outputed
+else
+    echo no output odt
+    exit 1
+fi
+
+if grep -q "[1-9][0-9]* fodt errors" target/result_test.log; then
+    echo output failed
+    exit 1
+fi
+
+
 
