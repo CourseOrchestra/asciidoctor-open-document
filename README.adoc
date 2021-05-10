@@ -64,8 +64,6 @@ For deployment in this project https://github.com/hannesdejager/docker-libreoffi
 
 You can look at https://github.com/CourseOrchestra/asciidoctor-open-document/blob/main/build/build.sh[build.sh] for the example. 
 
-//end::usage[]
-
 === As a ruby script
 
 Conversion consists of 2 steps.
@@ -93,6 +91,6 @@ ruby [path to script]/a-od-producer.rb -i [prelimenary content file] -o [final f
 ----
 
 There is a wrapper `a-od-out` in docker image. It just runs ruby with `a-od-producer.rb`.
-//tag::usage[]
+//end::usage[]
 
 *More details* can be found in https://courseorchestra.github.io/asciidoctor-open-document/[Open Document backend for Asciidoctor documentation].

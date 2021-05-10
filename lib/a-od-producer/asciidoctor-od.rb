@@ -342,7 +342,7 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_lip[ ]/) end
   def h_basic_inline_callout; BasicInlineCallout.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_ic[ ]/) end
-  def h_basic_example_caption; BasicCalloutListItemParagraph.new(@sn, @sd) if 
+  def h_basic_callout_list_item_paragraph; BasicCalloutListItemParagraph.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_colp[ ]/) end
   def h_basic_callout_list_callout_number; BasicCalloutListCalloutNumber.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_colcn[ ]/) end
