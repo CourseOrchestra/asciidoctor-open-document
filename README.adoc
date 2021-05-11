@@ -7,7 +7,7 @@ image::https://github.com/CourseOrchestra/asciidoctor-open-document/workflows/bu
 //tag::about[]
 Open Document backend for Asciidoctor allows to convert asciidoc documentation into fodt (plain Open Document) format. It relies on https://docs.asciidoctor.org/home/[Asciidoctor project].
 
-Fodt file may be converted with https://www.libreoffice.org/[LibreOffice] into pdf, odt, docx, doc etc.
+Fodt file may be converted with https://www.libreoffice.org/[LibreOffice] SDK or CLI into pdf, odt, docx, doc etc.
 
 Examples (built automatically as a part of CI routine):
 
@@ -24,8 +24,11 @@ The asciidoctor-open-document backend can be extended in the following ways:
 * custom xml-content preprocessor;
 * custom Open Document style setters.
 //end::about[]
+
 == Usage
+
 //tag::usage[]
+
 === With docker
 
 * Download and unzip project, manually or with (only Linux):
