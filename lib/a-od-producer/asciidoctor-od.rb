@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'optparse'
 require_relative 'misc'
 
-$defsn_p = "Text_20_body" 
+$defsn_p = "Text_20_body"
 $defsn_tp = "Table_20_Contents"
 $defsn_tp_head = "Table_20_Heading"
 $defsn_tca = "Table"
