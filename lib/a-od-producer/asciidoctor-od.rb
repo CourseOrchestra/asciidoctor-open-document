@@ -159,8 +159,11 @@ class StyleSubstitutor
         'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
     variable_set_fields.each do |variable_set_field|
       attr_name = variable_set_field["text:name"]
-      value = @pre.xpath("//a-od-params/attribute[@name='#{attr_name}']")[0]["value"]
-      variable_set_field.content = value unless value.nil? 
+      pre_attribute = @pre.xpath("//a-od-params/attribute[@name='#{attr_name}']")
+      unless pre_attribute.count == 0
+        value = pre_attribute[0]["value"]
+        variable_set_field.content = value unless value.nil?
+      end
     end
   end
 end
