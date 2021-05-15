@@ -30,7 +30,6 @@ Now automatic conversion to output format requires 3 steps: getting preliminary 
 ----
 audio
 dlist
-inline_break
 inline_button
 inline_indexterm
 inline_kbd
