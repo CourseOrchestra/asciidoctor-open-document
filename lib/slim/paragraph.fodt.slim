@@ -1,2 +1,5 @@
+/- require "pry"
+/- binding.pry
+
 text:p text:style-name="adoc_p #{get_basic_style}"
-  =content
+  =content.gsub("\n", "")

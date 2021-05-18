@@ -263,6 +263,9 @@ Third point (not sub) continuation. For example some large paragraph, that descr
 
 Example of _italic_, *bold*, ~subscript~, ^superscript^, #simply marked#, [small]#small text# and `monospaced`.
 
+Example of inline break +
+next string
+
 Example of informal table with no vertical lines.
 
 [frame=topbot, grid=rows]
