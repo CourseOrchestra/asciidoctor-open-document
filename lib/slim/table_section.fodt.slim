@@ -1,7 +1,7 @@
 - @rows[tblsec].each do |row|
   table:table-row table:style-name="adoc_tr #{table_style}"
     - row.each do |cell|
-      - cell_style = "#{table_style} #{tblsec} tcep_va_#{cell.attr :valign} tcep_ha_#{cell.attr :halign} tcep_s_#{cell.attr :style}"
+      - cell_style = "#{table_style} #{tblsec} tcep_va_#{cell.attr :valign} tcep_ha_#{cell.attr :halign} tcep_s_#{cell.attr :style} #{cell.attr :role}"
       table:table-cell (table:style-name="adoc_tce #{cell_style}"
           table:number-columns-spanned = cell.colspan
           table:number-rows-spanned= cell.rowspan )
