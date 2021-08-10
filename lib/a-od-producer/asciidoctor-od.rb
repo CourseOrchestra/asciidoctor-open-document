@@ -832,15 +832,6 @@ end
 
 tagged_nodes[0].remove
 
-# returning namespaces 
-["href", "type"].select { |attr_name|
-  template.xpath("//text:a/@#{attr_name}", 
-      'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0').each do |node|
-    node.parent["xlink:#{attr_name}"] = node.to_s
-    node.remove
-  end
-}
-
 File.write(output_file, template.to_xml)
 
 

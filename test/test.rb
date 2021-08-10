@@ -60,20 +60,21 @@ class TestNokogiriCornerCase
       @xml_doc_src = Nokogiri::XML @xml_text_src
       @xml_doc_dest = Nokogiri::XML @xml_text_dest
     end
-    it "should not (probably) but loses attribute namespace" do
+    it "should not lose attribute namespace" do
       ns = {'p1': "ns1", 'p2': "ns2"}
       node_dest = @xml_doc_dest.xpath("//p1:a", ns)[0]
       node_to_insert = @xml_doc_src.xpath("//p1:b", ns)[0]
       node_dest.add_child node_to_insert
-      assert_nil @xml_doc_dest.xpath("/p1:a/p1:b", 
-                                       ns)[0].attribute_with_ns('c', 'ns2'),
-        "check attribute with ns"
-      node_dest.xpath("//*/@c").each do |node|
-        node.parent["p2:c"] = node.to_s
-        node.remove
-      end
-      assert_equal @xml_doc_dest.xpath("/p1:a/p1:b", 
-                                       ns)[0].attribute_with_ns('c', 'ns2').to_s, 
+#      https://github.com/sparklemotion/nokogiri/issues/2228 now in prod
+#      assert_nil @xml_doc_dest.xpath("/p1:a/p1:b",
+#                                       ns)[0].attribute_with_ns('c', 'ns2'),
+#        "check attribute with ns"
+#      node_dest.xpath("//*/@c").each do |node|
+#        node.parent["p2:c"] = node.to_s
+#        node.remove
+#      end
+      assert_equal @xml_doc_dest.xpath("/p1:a/p1:b",
+                                       ns)[0].attribute_with_ns('c', 'ns2').to_s,
         "d", "check namespace restored"
     end
   end
