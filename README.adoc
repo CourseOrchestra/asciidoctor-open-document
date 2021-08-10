@@ -42,18 +42,19 @@ wget https://github.com/CourseOrchestra/asciidoctor-open-document/archive/refs/h
 ----
 build/build_image.sh
 ----
-* Run simplifies `a-od` utility
+* Run simplified `a-od` utility
 +
 ----
 docker run -rm -v /my-adoc:/documents/ a-od test.adoc odt
 ----
 +
 General syntax of `a-od` is:
++
 ----
-a-do [file] [output format] [custom fodt temlate] [custom lib]
+a-do [file] [output format] [custom fodt temlate] [custom conversion library]
 ----
 
-Or the conversion can be done step by step with the following commands:
+==== Or step by step without `a-od`
 
 * Convert adoc to preliminary Open Document content file
 +
