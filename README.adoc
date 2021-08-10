@@ -42,13 +42,25 @@ wget https://github.com/CourseOrchestra/asciidoctor-open-document/archive/refs/h
 ----
 build/build_image.sh
 ----
+* Run simplifies `a-od` utility
++
+----
+docker run -rm -v /my-adoc:/documents/ a-od test.adoc odt
+----
++
+General syntax of `a-od` is:
+----
+a-do [file] [output format] [custom fodt temlate] [custom lib]
+----
+
+Or the conversion can be done step by step with the following commands:
 
 * Convert adoc to preliminary Open Document content file
 +
 The following steps assume that asciidoc file `test.adoc` is in the `/my-adoc` directory. As a result we want to get `test.fodt` and `test.pdf`.
 +
 ----
-docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
+docker run --rm -v /my-adoc:/documents/ asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
 ----
 +
 Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
@@ -56,14 +68,17 @@ Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
 * Convert preliminary Open Document content file to fodt
 +
 ----
-docker run -it -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
+docker run --rm -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
 ----
 +
 Here the custom library is used. It contains examples of custom features: positioning equation number, paragraph alignment role, code highlighting, positioning admonitions inside of the list element.
 
-* Convert fodt to odt, pdf, docx etc.
+* Convert fodt to pdf, odt, docx etc.
 +
-For deployment in this project https://github.com/hannesdejager/docker-libreoffice-api[LibreOffice Headless with API in Docker] is used (<<build>>). It contains LibreOffice and https://github.com/dagwieers/unoconv[Universal Office Converter (unoconv)]. Unoconv updates indexes (table of contents, figure index, table index and so on) before converting.
+----
+docker run --rm -v /my-adoc:/documents/ asciidoctor-od unoconv -f pdf test.fodt
+----
++ Instead of pdf any format supported by Libre Office is possible.
 
 You can look at https://github.com/CourseOrchestra/asciidoctor-open-document/blob/main/build/build.sh[build.sh] for the example. 
 
