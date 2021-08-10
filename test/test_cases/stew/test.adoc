@@ -1,4 +1,4 @@
-= Document title
+= Document{nbsp}title
 :xrefstyle: short
 :sectnums:
 :stem:

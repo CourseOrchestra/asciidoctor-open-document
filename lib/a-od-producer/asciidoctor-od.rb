@@ -154,15 +154,19 @@ class StyleSubstitutor
     end
   end
   def h_subs_variable_set_fields
-    variable_set_fields = 
-      @template.xpath("//text:variable-set", 
+    variable_fields =
+      @template.xpath("//text:variable-set|//text:variable-get",
         'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
-    variable_set_fields.each do |variable_set_field|
-      attr_name = variable_set_field["text:name"]
+    variable_fields.each do |variable_field|
+      attr_name = variable_field["text:name"]
       pre_attribute = @pre.xpath("//a-od-params/attribute[@name='#{attr_name}']")
       unless pre_attribute.count == 0
         value = pre_attribute[0]["value"]
-        variable_set_field.content = value unless value.nil?
+        unless value.nil?
+          variable_field.after(value)
+          variable_field.remove
+        end
+        #variable_set_field.content = value unless value.nil?
       end
     end
   end
