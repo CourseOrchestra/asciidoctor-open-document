@@ -1,6 +1,6 @@
 require 'nokogiri' 
 schema_path = "resources/OpenDocument-v1.2-os-schema.rng"   
-doc_path = "target/stew/test.fodt" 
+doc_path = "target/stew/test.fodt_"
 template_path  = "lib/a-od-producer/basic-template.fodt" 
 
 schema = Nokogiri::XML::RelaxNG(File.open(schema_path))
