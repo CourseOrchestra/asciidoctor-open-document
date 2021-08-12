@@ -34,6 +34,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push
         run: |
-          docker push curs/asciidoctor:latest
+          docker push curs/asciidoctor-od:latest
 
 
