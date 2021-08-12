@@ -31,27 +31,18 @@ The asciidoctor-open-document backend can be extended in the following ways:
 
 === With docker
 
-* Download and unzip project, manually or with (only Linux):
-+
+==== With `a-od` simplified utility
+
+Assuming you need to convert `test.adoc` from the current directory to odt format.
+
 ----
-wget https://github.com/CourseOrchestra/asciidoctor-open-document/archive/refs/heads/main.zip -O temp.zip && unzip temp.zip && rm temp.zip
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od a-od test.adoc odt
 ----
 
-* Build docker image
-+
-----
-build/build_image.sh
-----
-* Run simplified `a-od` utility
-+
-----
-docker run -rm -v /my-adoc:/documents/ a-od test.adoc odt
-----
-+
 General syntax of `a-od` is:
-+
+
 ----
-a-do [file] [output format] [custom fodt temlate] [custom conversion library]
+a-od [file] [output format] [custom fodt temlate] [custom conversion library]
 ----
 
 ==== Or step by step without `a-od`
@@ -61,7 +52,7 @@ a-do [file] [output format] [custom fodt temlate] [custom conversion library]
 The following steps assume that asciidoc file `test.adoc` is in the `/my-adoc` directory. As a result we want to get `test.fodt` and `test.pdf`.
 +
 ----
-docker run --rm -v /my-adoc:/documents/ asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
 ----
 +
 Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
@@ -69,7 +60,7 @@ Here `asciidoctor-mathematical` and `asciidoctor-diagram` extensions are used.
 * Convert preliminary Open Document content file to fodt
 +
 ----
-docker run --rm -v /my-adoc:/documents/ asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt
 ----
 +
 Here the custom library is used. It contains examples of custom features: positioning equation number, paragraph alignment role, code highlighting, positioning admonitions inside of the list element.
@@ -77,11 +68,9 @@ Here the custom library is used. It contains examples of custom features: positi
 * Convert fodt to pdf, odt, docx etc.
 +
 ----
-docker run --rm -v /my-adoc:/documents/ asciidoctor-od unoconv -f pdf test.fodt
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od unoconv -f pdf test.fodt
 ----
 + Instead of pdf any format supported by Libre Office is possible.
-
-You can look at https://github.com/CourseOrchestra/asciidoctor-open-document/blob/main/build/build.sh[build.sh] for the example. 
 
 === As a ruby script
 
