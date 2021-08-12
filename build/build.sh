@@ -11,17 +11,17 @@ echo build image
 build/build_image.sh
 
 echo build README.adoc
-docker run --rm -v $(pwd):/documents/ -w /documents/ asciidoctor-od asciidoctor docs/a-od-basic-doc.adoc -o target/out/index.html
+docker run --rm -v $(pwd):/documents/ -w /documents/ curs/asciidoctor-od asciidoctor docs/a-od-basic-doc.adoc -o target/out/index.html
 
 echo make fodt
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt_
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram test.adoc -o pre.xml
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt_
 
 #tag::pdf_convert[]
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od unoconv -f fodt test.fodt_
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od unoconv -f pdf test.fodt_
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od unoconv -f odt test.fodt_
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od unoconv -f docx test.fodt_
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f fodt test.fodt_
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f pdf test.fodt_
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f odt test.fodt_
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f docx test.fodt_
 #end::pdf_convert[]
 
 #echo convert to pdf, odt, docx
@@ -46,10 +46,10 @@ docker run --rm -v $(pwd):/documents/ -w /documents/target/stew asciidoctor-od u
 cp target/stew/test.* target/out
 
 echo test a-od producer
-docker run --rm -v $(pwd):/documents/ asciidoctor-od ruby test/test.rb  | tee target/unit_test.log
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od ruby test/test.rb  | tee target/unit_test.log
 
 echo test final fodt
-docker run --rm -v $(pwd):/documents/ asciidoctor-od ruby test/test_fodt.rb  | tee target/result_test.log
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od ruby test/test_fodt.rb  | tee target/result_test.log
 
 if grep -q "[1-9][0-9]* failures" target/unit_test.log; then
     echo test.rb failed

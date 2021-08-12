@@ -2,4 +2,4 @@
 cd "$(dirname "$0")"
 cd ..
 
-docker build -t asciidoctor-od lib -f build/asciidoctor-od-image/Dockerfile #--no-cache
+docker build -t curs/asciidoctor-od lib -f build/asciidoctor-od-image/Dockerfile #--no-cache
