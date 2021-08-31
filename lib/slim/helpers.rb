@@ -1,6 +1,4 @@
-unless RUBY_ENGINE == 'opal'
-  require 'asciidoctor'
-end
+require 'cgi'
 
 module Slim::Helpers
 
@@ -19,11 +17,16 @@ module Slim::Helpers
   def get_basic_style
     ("#{role} #{$aod_current_cell_style[$aod_tl]} #{$aod_current_list_item_style[$aod_ll]}").strip
   end
+
   def content_frame cftype
     pstyle = "adoc_cfp cft_#{cftype} #{get_basic_style}"
     fstyle = "adoc_cf cft_#{cftype} #{get_basic_style}"
     id = "#{id.nil? ? '' : id}"
     "<text:p text:style-name='#{pstyle}'><draw:frame draw:style-name='#{fstyle}' draw:name='#{id}'>#{yield}</draw:frame></text:p>"
+  end
+
+  def escape_html str
+    CGI.escape_html(CGI.unescape_html(str))
   end
 end
 
