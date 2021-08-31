@@ -163,7 +163,8 @@ class StyleSubstitutor
       unless pre_attribute.count == 0
         value = pre_attribute[0]["value"]
         unless value.nil?
-          variable_field.after(value)
+          text_node = Nokogiri::XML::Text.new(value, @template)
+          variable_field.after(text_node)
           variable_field.remove
         end
         #variable_set_field.content = value unless value.nil?
