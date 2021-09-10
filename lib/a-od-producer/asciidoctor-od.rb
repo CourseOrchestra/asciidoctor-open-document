@@ -527,13 +527,13 @@ end
 tag::plusfeatures[]
 == Image attributes
 
-* rectfit -- dimensions to fit image in like `100x50mm`. Only mm unit is supported
+* fitrect -- dimensions to fit image in like `100x50mm`. Only mm unit is supported
 * srcdpi -- resolution of the source image. Usually when we add something to our diagram (like new process to the process diagram), the dimensions of the image change, but resolution doesn't change. Default -- 100 dpi.
 * svgunit -- units, in which svg dimensions are defined
 
 This attribute doesn't eliminate the need to have a set of image for each resolution, but for simple situation it is quite enough.
 
-If `rectfit` is not defined in inline images it is assumed from the following attributes:
+If `fitrect` is not defined in inline images it is assumed from the following attributes:
 
 * def_100_percent_mm -- width
 * def_inline_height_mm -- height
@@ -571,10 +571,10 @@ class BasicImageFrame < BasicHelper
 
     re = / ip_fr_([0-9\.]+x[0-9\.]+[a-z]+) /
     if !!(@snr =~ re)
-      rectfit = MiscMethods.get_normalized_rectfit_attribute @snr.match(re)[1]
+      fitrect = MiscMethods.get_normalized_fitrect_attribute @snr.match(re)[1]
       re = /([0-9\.]+)x([0-9\.]+)/
-      rect_w = rectfit.match(re)[1].to_f
-      rect_h = rectfit.match(re)[2].to_f
+      rect_w = fitrect.match(re)[1].to_f
+      rect_h = fitrect.match(re)[2].to_f
     end
 
     re = / ip_sd_([0-9]+) /
