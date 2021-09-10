@@ -19,10 +19,10 @@ class MiscMethods
       {img_cw: img_rw.to_f * ratio, img_ch: img_rh.to_f * ratio}
     end
   end
-  def self.get_normalized_rectfit_attribute rectfit_attribute
+  def self.get_normalized_fitrect_attribute fitrect_attribute
     re = /[0-9]+x[0-9]+mm/
-    raise "Rectfit is accepted only in millimeters, like 20x10mm" if !!(rectfit_attribute !~ re) 
-    rectfit_attribute
+    raise "Rectfit is accepted only in millimeters, like 20x10mm" if !!(fitrect_attribute !~ re)
+    fitrect_attribute
   end
   def self.normilize_style_name style_name
     style_name.gsub(/ /,"_20_")

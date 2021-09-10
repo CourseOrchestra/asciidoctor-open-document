@@ -14,16 +14,16 @@ class TestMiscMethods < Minitest::Test
       end
     end
   end
-  describe "Method get_normalized_rectfit_attribute" do
-    it "should return normalized rectfit, for now, only mm are accepted" do
-      assert_equal MiscMethods.get_normalized_rectfit_attribute("20x10mm"), "20x10mm"
+  describe "Method get_normalized_fitrect_attribute" do
+    it "should return normalized fitrect, for now, only mm are accepted" do
+      assert_equal MiscMethods.get_normalized_fitrect_attribute("20x10mm"), "20x10mm"
     end
     it "should raise error on anything not mm like" do
       assert_raises RuntimeError do
-        MiscMethods.get_normalized_rectfit_attribute("20x10")
+        MiscMethods.get_normalized_fitrect_attribute("20x10")
       end
       assert_raises RuntimeError do
-        MiscMethods.get_normalized_rectfit_attribute("20x10in")
+        MiscMethods.get_normalized_fitrect_attribute("20x10in")
       end
     end
   end
