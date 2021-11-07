@@ -1,4 +1,5 @@
 require 'cgi'
+require 'asciidoctor'
 
 module Slim::Helpers
 
@@ -28,6 +29,21 @@ module Slim::Helpers
   def escape_html str
     CGI.escape_html(CGI.unescape_html(str))
   end
+
+  def section_level(sec = self)
+    @_section_level ||= (sec.level == 0 && sec.special) ? 1 : sec.level
+  end
+
+  def section_title(sec = self)
+    sectnumlevels = document.attr(:sectnumlevels, 3).to_i
+
+    if sec.numbered && !sec.caption && sec.level <= sectnumlevels
+      [sec.sectnum, sec.captioned_title].join(' ')
+    else
+      sec.captioned_title
+    end
+end
+
 end
 
 

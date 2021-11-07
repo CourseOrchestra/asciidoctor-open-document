@@ -1,3 +1,6 @@
+//- require 'pry'
+//- binding.pry
+
 - $aod_tl = 0
 - $aod_current_cell_style = {$aod_tl => ""}
 - $aod_ll = 0
@@ -16,4 +19,6 @@ office:body(
     - @attributes.each do |attr, value|
       attribute name = attr value = escape_html(value.to_s)
   office:text text:use-soft-page-breaks='true'
+    - if (attr? :toc) && (attr? 'toc-placement', 'auto')
+      = converter.convert document, 'outline'
     =content
