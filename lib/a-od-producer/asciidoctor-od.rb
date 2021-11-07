@@ -84,6 +84,13 @@ $def_table_top_margin = "0cm"
 $def_table_bottom_margin = "0.25cm"
 $def_ntable_top_margin = "0.1cm"
 $def_ntable_bottom_margin = "0.1cm"
+$def_toc_pn_column_rel = 1000
+$def_toc_title_column_rel = 16000
+$defsn_toc_h1 = "TOC_20_Level_20_1"
+$defsn_toc_h2 = "TOC_20_Level_20_2"
+$defsn_toc_h3 = "TOC_20_Level_20_3"
+$defsn_toc_h4 = "TOC_20_Level_20_4"
+$defsn_toc_h5 = "TOC_20_Level_20_5"
 
 =begin
 tag::algorithm_description[]
@@ -354,6 +361,12 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_colp[ ]/) end
   def h_basic_callout_list_callout_number; BasicCalloutListCalloutNumber.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_colcn[ ]/) end
+  def h_basic_toc_table_column; BasicTocTableColumn.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tocc[ ]/) end
+  def h_basic_toc_cell; BasicTocCell.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tocce[ ]/) end
+  def h_basic_toc_paragraph; BasicTocParagraph.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tocp[ ]/) end
 end
 
 
@@ -399,7 +412,7 @@ end
 class BasicTableRow < BasicHelper
   def h_set_row_keep_together
     @sd["style:table-row-properties"]["fo:keep-together"] =
-      "always" if !!(@snr =~ / row_keep_together /)      
+      "always" if !!(@snr =~ / row_keep_together /)
   end
 end
 
@@ -747,6 +760,41 @@ end
 class BasicCalloutListCalloutNumber < BasicHelper
   def h_parent_style_name
     @sd[:parent_style_name] = $defsn_span_callout_list_callout_number
+  end
+end
+
+
+class BasicTocTableColumn < BasicHelper
+  def h_style_column_width
+    re = / sec_pn /
+    @sd["style:table-column-properties"]["style:rel-column-width"] =
+      "#{$def_toc_pn_column_rel}*"  if !!(@snr =~ re)
+    re = / sec_title /
+    @sd["style:table-column-properties"]["style:rel-column-width"] =
+      "#{$def_toc_title_column_rel}*"  if !!(@snr =~ re)
+  end
+end
+
+class BasicTocCell < BasicHelper
+  def h_style_vertical_align
+    re = / sec_pn /
+    @sd["style:table-cell-properties"]["style:vertical-align"] = "bottom" if !!(@snr =~ re)
+  end
+end
+
+class BasicTocParagraph < BasicHelper
+  def h_parent_style_name
+    re = / slevel\_([0-9]) /
+    slevel = @snr.match(re)[1]
+    @sd[:parent_style_name] = eval("$defsn_toc_h#{slevel}")
+  end
+  def h_style_margin_left
+    re = / sec_pn /
+    @sd["style:paragraph-properties"]["fo:margin-left"] = "0mm" if !!(@snr =~ re)
+  end
+  def h_style_text_align
+    re = / sec_pn /
+    @sd["style:paragraph-properties"]["fo:text-align"] = "end" if !!(@snr =~ re)
   end
 end
 
