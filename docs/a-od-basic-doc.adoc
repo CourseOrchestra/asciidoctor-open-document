@@ -38,7 +38,6 @@ quote
 section (no special processing for special sections)
 sidebar
 thematic_break
-toc (for now relied on fodt template)
 verse
 video
 ----

@@ -84,6 +84,14 @@ $def_table_top_margin = "0cm"
 $def_table_bottom_margin = "0.25cm"
 $def_ntable_top_margin = "0.1cm"
 $def_ntable_bottom_margin = "0.1cm"
+$def_toc_pn_column_rel = 1000
+$def_toc_title_column_rel = 16000
+$defsn_toc_h1 = "TOC_20_Level_20_1"
+$defsn_toc_h2 = "TOC_20_Level_20_2"
+$defsn_toc_h3 = "TOC_20_Level_20_3"
+$defsn_toc_h4 = "TOC_20_Level_20_4"
+$defsn_toc_h5 = "TOC_20_Level_20_5"
+$defsn_toc_header = "Contents_20_Heading"
 
 =begin
 tag::algorithm_description[]
@@ -137,10 +145,12 @@ class StyleSubstitutor
     anchor_list.each do |anchor|
       snr = ' ' + anchor['text:style-name'] + ' '
       if !!(snr =~ / adoc_a /) 
-        if !!(snr =~ / visited /)
-          anchor['text:style-name'] = $defsn_a
+        if !!(snr =~ / toc\_entry /)
+          anchor['text:style-name'] = "Index_20_Link"
+          anchor['text:visited-style-name'] = "Index_20_Link"
         else
-          anchor['text:style-name'] = $defsn_a_visited
+          anchor['text:style-name'] = $defsn_a
+          anchor['text:visited-style-name'] = $defsn_a_visited
         end
       end
     end
@@ -354,6 +364,14 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_colp[ ]/) end
   def h_basic_callout_list_callout_number; BasicCalloutListCalloutNumber.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_colcn[ ]/) end
+  def h_basic_toc_table_column; BasicTocTableColumn.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tocc[ ]/) end
+  def h_basic_toc_cell; BasicTocCell.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tocce[ ]/) end
+  def h_basic_toc_paragraph; BasicTocParagraph.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tocp[ ]/) end
+  def h_basic_toc_header; BasicTocHeader.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_toch[ ]/) end
 end
 
 
@@ -377,12 +395,18 @@ class BasicTable < BasicHelper
     @sd["style:table-properties"]["style:may-break-between-rows"] = 
       "false" if !!(@snr =~ / tp_o_unbreakable /)
   end
+  def h_style_keep_with_next
+    @sd["style:table-properties"]["fo:keep-with-next"] =
+      "always" if !!(@snr =~ / keep_with_next /)
+  end
   def h_fo_margins
     @sd["style:table-properties"]["fo:margin-top"] = $def_table_top_margin
-    @sd["style:table-properties"]["fo:margin-bottom"] = $def_table_bottom_margin
+    @sd["style:table-properties"]["fo:margin-bottom"] = $def_table_bottom_margin unless
+      (@snr =~ / no_margin_bottom /)
     if !!(@snr =~ / in_cell_[0-9] /)
       @sd["style:table-properties"]["fo:margin-top"] = $def_ntable_top_margin
-      @sd["style:table-properties"]["fo:margin-bottom"] = $def_ntable_bottom_margin
+      @sd["style:table-properties"]["fo:margin-bottom"] = $def_ntable_bottom_margin unless
+        (@snr =~ / no_margin_bottom /)
     end
   end
 end
@@ -399,7 +423,7 @@ end
 class BasicTableRow < BasicHelper
   def h_set_row_keep_together
     @sd["style:table-row-properties"]["fo:keep-together"] =
-      "always" if !!(@snr =~ / row_keep_together /)      
+      "always" if !!(@snr =~ / row_keep_together /)
   end
 end
 
@@ -747,6 +771,43 @@ end
 class BasicCalloutListCalloutNumber < BasicHelper
   def h_parent_style_name
     @sd[:parent_style_name] = $defsn_span_callout_list_callout_number
+  end
+end
+
+
+class BasicTocTableColumn < BasicHelper
+  def h_style_column_width
+    re = / sec_pn /
+    @sd["style:table-column-properties"]["style:rel-column-width"] =
+      "#{$def_toc_pn_column_rel}*"  if !!(@snr =~ re)
+    re = / sec_title /
+    @sd["style:table-column-properties"]["style:rel-column-width"] =
+      "#{$def_toc_title_column_rel}*"  if !!(@snr =~ re)
+  end
+end
+
+class BasicTocCell < BasicHelper
+  def h_style_vertical_align
+    re = / sec_pn /
+    @sd["style:table-cell-properties"]["style:vertical-align"] = "bottom" if !!(@snr =~ re)
+  end
+end
+
+class BasicTocParagraph < BasicHelper
+  def h_parent_style_name
+    re = / slevel\_([0-9]) /
+    slevel = @snr.match(re)[1]
+    @sd[:parent_style_name] = eval("$defsn_toc_h#{slevel}")
+  end
+  def h_style_margin_left
+    re = / sec_pn /
+    @sd["style:paragraph-properties"]["fo:margin-left"] = "0mm" if !!(@snr =~ re)
+  end
+end
+
+class BasicTocHeader < BasicHelper
+  def h_parent_style_name
+    @sd[:parent_style_name] = eval("$defsn_toc_header")
   end
 end
 
