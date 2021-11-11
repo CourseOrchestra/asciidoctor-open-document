@@ -2,17 +2,22 @@
   - toclevels ||= (document.attr 'toclevels', 3).to_i
   - slevel = section_level sections.first
   - sections.each do |sec|
-    table:table table:style-name="adoc_t"
+    - keep_with_next = (sec.sections.empty? || sec.level >= toclevels) ? "" : "keep_with_next"
+    table:table table:style-name="adoc_t no_margin_bottom #{keep_with_next}"
       table:table-column table:style-name="adoc_tocc sec_title"
       table:table-column table:style-name="adoc_tocc sec_pn"
       table:table-row table:style-name="adoc_tr row_keep_together"
         table:table-cell table:style-name="adoc_tocce sec_title"
           text:p text:style-name="adoc_tocp sec_title slevel_#{slevel}"
-            |#{sec.numbered ? sec.sectnum : ""} #{sec.title}
+            text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
+              |#{sec.numbered ? sec.sectnum : ""} #{sec.title}
+              text:tab
         table:table-cell table:style-name="adoc_tocce sec_pn"
           text:p text:style-name="adoc_tocp sec_pn slevel_#{slevel}"
-            text:bookmark-ref text:reference-format="page" text:ref-name="#{sec.id}"
-              ="0"
+            text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
+              text:tab
+              text:bookmark-ref text:reference-format="page" text:ref-name="#{sec.id}"
+                ="0"
     - if (sec.level < toclevels) && (child_toc = converter.convert sec, 'outline')
       =child_toc
 

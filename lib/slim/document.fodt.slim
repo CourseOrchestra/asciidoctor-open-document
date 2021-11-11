@@ -20,5 +20,5 @@ office:body(
       attribute name = attr value = escape_html(value.to_s)
   office:text text:use-soft-page-breaks='true'
     - if (attr? :toc) && (attr? 'toc-placement', 'auto')
-      = converter.convert document, 'outline'
+      include _toc.fodt
     =content
