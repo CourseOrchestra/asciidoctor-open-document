@@ -91,6 +91,7 @@ $defsn_toc_h2 = "TOC_20_Level_20_2"
 $defsn_toc_h3 = "TOC_20_Level_20_3"
 $defsn_toc_h4 = "TOC_20_Level_20_4"
 $defsn_toc_h5 = "TOC_20_Level_20_5"
+$defsn_toc_header = "Contents_20_Heading"
 
 =begin
 tag::algorithm_description[]
@@ -144,10 +145,12 @@ class StyleSubstitutor
     anchor_list.each do |anchor|
       snr = ' ' + anchor['text:style-name'] + ' '
       if !!(snr =~ / adoc_a /) 
-        if !!(snr =~ / visited /)
-          anchor['text:style-name'] = $defsn_a
+        if !!(snr =~ / toc\_entry /)
+          anchor['text:style-name'] = "Index_20_Link"
+          anchor['text:visited-style-name'] = "Index_20_Link"
         else
-          anchor['text:style-name'] = $defsn_a_visited
+          anchor['text:style-name'] = $defsn_a
+          anchor['text:visited-style-name'] = $defsn_a_visited
         end
       end
     end
@@ -367,6 +370,8 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_tocce[ ]/) end
   def h_basic_toc_paragraph; BasicTocParagraph.new(@sn, @sd) if
     !!(@sn =~ /^adoc_tocp[ ]/) end
+  def h_basic_toc_header; BasicTocHeader.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_toch[ ]/) end
 end
 
 
@@ -390,12 +395,18 @@ class BasicTable < BasicHelper
     @sd["style:table-properties"]["style:may-break-between-rows"] = 
       "false" if !!(@snr =~ / tp_o_unbreakable /)
   end
+  def h_style_keep_with_next
+    @sd["style:table-properties"]["fo:keep-with-next"] =
+      "always" if !!(@snr =~ / keep_with_next /)
+  end
   def h_fo_margins
     @sd["style:table-properties"]["fo:margin-top"] = $def_table_top_margin
-    @sd["style:table-properties"]["fo:margin-bottom"] = $def_table_bottom_margin
+    @sd["style:table-properties"]["fo:margin-bottom"] = $def_table_bottom_margin unless
+      (@snr =~ / no_margin_bottom /)
     if !!(@snr =~ / in_cell_[0-9] /)
       @sd["style:table-properties"]["fo:margin-top"] = $def_ntable_top_margin
-      @sd["style:table-properties"]["fo:margin-bottom"] = $def_ntable_bottom_margin
+      @sd["style:table-properties"]["fo:margin-bottom"] = $def_ntable_bottom_margin unless
+        (@snr =~ / no_margin_bottom /)
     end
   end
 end
@@ -792,9 +803,11 @@ class BasicTocParagraph < BasicHelper
     re = / sec_pn /
     @sd["style:paragraph-properties"]["fo:margin-left"] = "0mm" if !!(@snr =~ re)
   end
-  def h_style_text_align
-    re = / sec_pn /
-    @sd["style:paragraph-properties"]["fo:text-align"] = "end" if !!(@snr =~ re)
+end
+
+class BasicTocHeader < BasicHelper
+  def h_parent_style_name
+    @sd[:parent_style_name] = eval("$defsn_toc_header")
   end
 end
 
