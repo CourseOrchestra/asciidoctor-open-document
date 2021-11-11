@@ -1,13 +1,17 @@
-= Document{nbsp}title some text with xml{nbsp}escape{nbsp}characters: ',{nbsp}",{nbsp}<,{nbsp}>,{nbsp}&
+= Test document{nbsp}title (test escape{nbsp}characters in{nbsp}title: ',{nbsp}",{nbsp}<,{nbsp}>,{nbsp}&)
 :xrefstyle: short
 :sectnums:
 :stem:
 :mathematical-format: svg
 :doctype: book
 :source-highlighter: rouge
+:toc: center
 
 
 :base64-image-example: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==
+
+{nbsp}
+
 Some sort of preamble
 multiline paragraph.
 
@@ -220,6 +224,10 @@ image::ruler.png[fitrect="170x225mm", srcdpi=500, width = "10%"]
 
 .Ruler, made to fit page vertically (if considered 100dpi)
 image::ruler.png[fitrect="170x225mm", srcdpi=100, width = "10%"]
+
+
+:!sectnums:
+
 == Test Lists (this section heading is without a number)
 
 :sectnums:
@@ -342,6 +350,12 @@ And some TIP in a table
 [.text-align-right]
 A Test right-aligned paragraph text. 
 
+== Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 1 (doesn't hang over page number)
+=== Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 2
+=== Some another with possible break above long, very long, very very long, very very very long, very very very very long h e a d i n g of level 2
+==== Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 3
+===== Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 4
+====== Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 5
 
 [appendix]
 == Appendix example

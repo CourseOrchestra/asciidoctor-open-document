@@ -1,0 +1,35 @@
+- unless sections.empty?
+  - toclevels ||= (document.attr 'toclevels', 3).to_i
+  - slevel = section_level sections.first
+  - sections.each do |sec|
+    - keep_with_next = (sec.sections.empty? || sec.level >= toclevels) ? "" : "keep_with_next"
+    table:table table:style-name="adoc_t no_margin_bottom #{keep_with_next}"
+      table:table-column table:style-name="adoc_tocc sec_title"
+      table:table-column table:style-name="adoc_tocc sec_pn"
+      table:table-row table:style-name="adoc_tr row_keep_together"
+        table:table-cell table:style-name="adoc_tocce sec_title"
+          text:p text:style-name="adoc_tocp sec_title slevel_#{slevel}"
+            text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
+              |#{sec.numbered ? sec.sectnum : ""} #{sec.title}
+              text:tab
+        table:table-cell table:style-name="adoc_tocce sec_pn"
+          text:p text:style-name="adoc_tocp sec_pn slevel_#{slevel}"
+            text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
+              text:tab
+              text:bookmark-ref text:reference-format="page" text:ref-name="#{sec.id}"
+                ="0"
+    - if (sec.level < toclevels) && (child_toc = converter.convert sec, 'outline')
+      =child_toc
+
+//      <table:table table:name="Table8" table:style-name="Table8">
+//        <table:table-column table:style-name="Table8.A"/>
+//        <table:table-column table:style-name="Table8.B"/>
+//        <table:table-row table:style-name="TableLine94455643830000">
+//          <table:table-cell table:style-name="Table8.A1" office:value-type="string">
+//            <text:p text:style-name="Table_20_Contents"/>
+//          </table:table-cell>
+//          <table:table-cell table:style-name="Table8.A1" office:value-type="string">
+//            <text:p text:style-name="P57"/>
+//          </table:table-cell>
+//        </table:table-row>
+//      </table:table>
