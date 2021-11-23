@@ -13,6 +13,11 @@
 
 {nbsp}
 
+|===
+l| cat foo.txt \| grep bar
+|===
+
+
 Some sort of preamble
 multiline paragraph.
 
