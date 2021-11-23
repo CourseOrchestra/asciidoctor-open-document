@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "00 5,13 * * *"    
+    - cron: "05 5 * * *"    
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
