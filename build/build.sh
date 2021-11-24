@@ -68,5 +68,4 @@ if grep -q "[1-9][0-9]* fodt errors" target/result_test.log; then
     exit 1
 fi
 
-build/build_typography.sh
 
