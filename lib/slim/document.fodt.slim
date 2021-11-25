@@ -1,5 +1,5 @@
-//- require 'pry'
-//- binding.pry
+/ - require 'pry'
+/ - binding.pry
 
 - $aod_tl = 0
 - $aod_current_cell_style = {$aod_tl => ""}
@@ -18,6 +18,12 @@ office:body(
   a-od-params
     - @attributes.each do |attr, value|
       attribute name = attr value = escape_html(value.to_s)
+    - title_parts = document.doctitle partition: true
+    title
+      =title_parts.title
+    subtitle
+      =title_parts.subtitle
+
   office:text text:use-soft-page-breaks='true'
     - if (attr? :toc) && (attr? 'toc-placement', 'auto')
       include _toc.fodt

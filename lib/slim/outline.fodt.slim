@@ -11,11 +11,15 @@
           text:p text:style-name="adoc_tocp sec_title slevel_#{slevel}"
             text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
               |#{sec.numbered ? sec.sectnum : ""} #{sec.title}
-              text:tab
+              text:span text:style-name = "adoc_tociq dots_title"
+                text:tab
         table:table-cell table:style-name="adoc_tocce sec_pn"
           text:p text:style-name="adoc_tocp sec_pn slevel_#{slevel}"
             text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
-              text:tab
+              text:span text:style-name = "adoc_tociq dots_page_number"
+                text:tab
+              text:span text:style-name = "adoc_tociq dots_space_page_number"
+                text:s
               text:bookmark-ref text:reference-format="page" text:ref-name="#{sec.id}"
                 ="0"
     - if (sec.level < toclevels) && (child_toc = converter.convert sec, 'outline')
