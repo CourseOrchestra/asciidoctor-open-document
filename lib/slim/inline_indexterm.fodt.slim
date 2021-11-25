@@ -1,0 +1,22 @@
+/ - require "pry"
+/ - binding.pry
+
+- require 'securerandom'
+- uid = SecureRandom.uuid
+- if type == :visible
+  text:alphabetical-index-mark-start text:id = "#{uid}"
+  =text
+  text:alphabetical-index-mark-end text:id = "#{uid}"
+- else
+  - if (attr :terms).length() == 1
+    text:alphabetical-index-mark text:string-value = (attr :terms)[0]
+  - if (attr :terms).length() == 2
+    text:alphabetical-index-mark (text:string-value = (attr :terms)[1]
+    text:key1 = (attr :terms)[0])
+  - if (attr :terms).length() == 3
+    text:alphabetical-index-mark (text:string-value = (attr :terms)[2]
+    text:key1 = (attr :terms)[0]
+    text:key2 = (attr :terms)[1])
+
+
+
