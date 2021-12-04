@@ -92,6 +92,15 @@ $aodp_sn_toc_h3 = "TOC_20_Level_20_3"
 $aodp_sn_toc_h4 = "TOC_20_Level_20_4"
 $aodp_sn_toc_h5 = "TOC_20_Level_20_5"
 $aodp_sn_toc_header = "Contents_20_Heading"
+$aodp_sn_toc_dots_title = "TOC_20_Dots_20_Title"
+$aodp_sn_toc_dots_page_number = "TOC_20_Dots_20_Page_20_Number"
+$aodp_sn_toc_dots_space_page_number = "TOC_20_Dots_20_Space_20_Page_20_Number"
+$aodp_sn_index_separator = "Index_20_Separator"
+$aodp_sn_index_heading = "Zero_20_Height"
+$aodp_sn_index_1 = "Index_20_1"
+$aodp_sn_index_2 = "Index_20_2"
+$aodp_sn_index_3 = "Index_20_3"
+$aodp_sn_alphabetical_index_pagenum = "Alphabetical_20_Index_20_Pagenum"
 
 =begin
 tag::algorithm_description[]
@@ -129,6 +138,19 @@ class StyleSubstitutor
   end
   def descendants
     ObjectSpace.each_object(::Class).select {|c| c < self.class}
+  end
+  def h_subs_index
+    index_style_list = @pre.xpath("//text:alphabetical-index-source//*/@text:style-name",
+                                 'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
+    index_style_list.each do |index_style|
+      snr = " #{index_style} "
+      index_style.value = $aodp_sn_index_separator if !!(snr =~ / index\_separator /)
+      index_style.value = $aodp_sn_index_heading if !!(snr =~ / index\_heading /)
+      index_style.value = $aodp_sn_index_1 if !!(snr =~ / index\_1 /)
+      index_style.value = $aodp_sn_index_2 if !!(snr =~ / index\_2 /)
+      index_style.value = $aodp_sn_index_3 if !!(snr =~ / index\_3 /)
+      index_style.value = $aodp_sn_alphabetical_index_pagenum if !!(snr =~ / alphabetical\_index\_pagenum /)
+    end
   end
   def h_subs_lists
     list_style_list = @pre.xpath("//text:list/@text:style-name", 
@@ -169,6 +191,20 @@ class StyleSubstitutor
         'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
     variable_fields.each do |variable_field|
       attr_name = variable_field["text:name"]
+      if attr_name == 'title'
+        node_to_insert = @pre.xpath("//a-od-params/title/node()",
+                  'office' => 'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
+                  'xlink' => 'http://www.w3.org/1999/xlink')
+        variable_field.after(node_to_insert)
+        variable_field.remove
+      end
+      if attr_name == 'subtitle'
+        node_to_insert = @pre.xpath("//a-od-params/subtitle/node()",
+                                    'office' => 'urn:oasis:names:tc:opendocument:xmlns:office:1.0',
+                                    'xlink' => 'http://www.w3.org/1999/xlink')
+        variable_field.after(node_to_insert)
+        variable_field.remove
+      end
       pre_attribute = @pre.xpath("//a-od-params/attribute[@name='#{attr_name}']")
       unless pre_attribute.count == 0
         value = pre_attribute[0]["value"]
@@ -201,9 +237,9 @@ end::algorithm_description[]
 =end
 
 class AutoStyleSetter
-  def initialize(style_rep, pre)
+  def initialize(style_rep, contents)
     @style_rep = style_rep
-    @pre = pre
+    @contents = contents
     init_style_types
   end
   def init_style_types
@@ -264,7 +300,7 @@ class AutoStyleSetter
   def setAutoStyles
     @style_types.each do |type, definition|
       definition[:applies].each do |applied_tag|
-        nodes = @pre.xpath("//#{applied_tag}/@#{definition[:name_attribute_prefix]}:style-name|//#{applied_tag}/@#{definition[:name_attribute_prefix]}:visited-style-name",
+        nodes = @contents.xpath("//#{applied_tag}/@#{definition[:name_attribute_prefix]}:style-name|//#{applied_tag}/@#{definition[:name_attribute_prefix]}:visited-style-name",
                            'table' => 'urn:oasis:names:tc:opendocument:xmlns:table:1.0',
                            'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
                            'draw' => 'urn:oasis:names:tc:opendocument:xmlns:drawing:1.0'
@@ -372,6 +408,8 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_tocp[ ]/) end
   def h_basic_toc_header; BasicTocHeader.new(@sn, @sd) if
     !!(@sn =~ /^adoc_toch[ ]/) end
+  def h_basic_toc_inline_quoted; BasicTocInlineQuoted.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_tociq[ ]/) end
 end
 
 
@@ -811,6 +849,13 @@ class BasicTocHeader < BasicHelper
   end
 end
 
+class BasicTocInlineQuoted < BasicHelper
+  def h_parent_style_name
+    @sd[:parent_style_name] = $aodp_sn_toc_dots_title if !!(@snr =~ / dots_title /)
+    @sd[:parent_style_name] = $aodp_sn_toc_dots_page_number if !!(@snr =~ / dots_page_number /)
+    @sd[:parent_style_name] = $aodp_sn_toc_dots_space_page_number if !!(@snr =~ / dots_space_page_number /)
+  end
+end
 class StyleToXml
   def self.to_doc style_rep, xml_node
     style_rep.each do |sn, sd|
@@ -874,12 +919,8 @@ template = File.open(template_file) { |f| Nokogiri::XML(f) }
 pre = File.open(input_file) { |f| Nokogiri::XML(f) }
 
 StyleSubstitutor.new(pre, template)
-AutoStyleSetter.new(style_rep = Hash.new, pre).setAutoStyles  
-StyleToXml.to_doc style_rep, 
-  template.xpath("//office:automatic-styles", 
-    "office" => "urn:oasis:names:tc:opendocument:xmlns:office:1.0").first
 
-tagged_nodes = 
+tagged_nodes =
   template.xpath("/*/*/office:text/*[descendant-or-self::*[contains(text(),'asciidoc-od')]" + 
       " and local-name() != 'table-of-content']",
        "office" => "urn:oasis:names:tc:opendocument:xmlns:office:1.0")
@@ -897,6 +938,11 @@ tagged_nodes[0].xpath("following-sibling::*").each do |node|
 end
 
 tagged_nodes[0].remove
+
+AutoStyleSetter.new(style_rep = Hash.new, template).setAutoStyles
+StyleToXml.to_doc style_rep,
+                  template.xpath("//office:automatic-styles",
+                                 "office" => "urn:oasis:names:tc:opendocument:xmlns:office:1.0").first
 
 File.write(output_file, template.to_xml)
 
