@@ -1,23 +1,23 @@
+- images_dir = "#{@document.attributes['imagesdir'] || '.'}/"
 - require 'base64'
 - require 'fastimage'
 - re = /^data:image\/([a-z]+);base64,(.*)$/
 - if !!(utarget =~ re)
   - enc = utarget.match(re)[2]
   - type = utarget.match(re)[1]
-- else 
-  - enc = Base64.encode64(open(utarget) { |io| io.read })
-  - type = FastImage.type(utarget)
-  /utarget.match(/\.[0-9a-z]+$/)[0]
+- else
+  - enc = Base64.encode64(open("#{images_dir}#{utarget}") { |io| io.read })
+  - type = FastImage.type("#{images_dir}#{utarget}")
 - x_y_array = FastImage.size("data:image/#{type};base64,#{enc}")
 - image_style += " ip_x2y_#{x_y_array[0]}x#{x_y_array[1]}"
 - if @attributes.key?("width")
   - image_width = (attr :width).dup.gsub "%", "_prc" unless (attr :width).nil?
   - image_style += " ip_w_#{image_width}"
-- image_style += " ip_fr_#{attr :fitrect}" if @attributes.key?("fitrect") 
+- image_style += " ip_fr_#{attr :fitrect}" if @attributes.key?("fitrect")
 - image_style += " ip_sd_#{attr :srcdpi}"  if @attributes.key?("srcdpi")
-- image_style += " ip_su_#{attr :svgunit}" if @attributes.key?("svgunit") 
+- image_style += " ip_su_#{attr :svgunit}" if @attributes.key?("svgunit")
 - image_style += " ip_t_#{type}"
-draw:frame (draw:style-name="adoc_if #{image_style}" 
+draw:frame (draw:style-name="adoc_if #{image_style}"
   draw:name="#{id.nil? ? 'image' : id}")
   draw:image
     office:binary-data
