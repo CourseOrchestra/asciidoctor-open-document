@@ -13,7 +13,12 @@
 
 {nbsp}
 
-Some sort of preamble
+|===
+l| cat foo.txt \| grep bar
+|===
+
+
+Some sort of [((preamble))]
 multiline paragraph.
 
 Another preamble paragraph.
@@ -25,7 +30,7 @@ Another preamble paragraph.
 [dedication]
 == Dedication
 
-Some dedication
+Some dedication (((preamble, good preamble)))
 
 中文文字
 
@@ -362,3 +367,6 @@ A Test right-aligned paragraph text.
 == Appendix example
 
 An appendix
+
+[index]
+== An index
