@@ -1,23 +1,21 @@
 - case @type
 - when :xref
+  - refid = "#{attr :refid}"
   - if (path = attributes['path'])
-    - attrs = (append_link_constraint_attrs  role ? [%( class="#{role}")] : []).join
-    - text = text || path
+    - reftext = text || path
   - else
-    - attrs = role ? %( class="#{role}") : ''
     - if @text.nil?
       - unless @document.catalog[:refs][attr :refid].nil?
-        - text = @document.catalog[:refs][attr :refid].xreftext @document.attr :xrefstyle, nil, true
-        - text = %([#{attr :refid}]) if text.nil?
-      - else 
-        - text = %([#{attr :refid}])
+        - reftext = @document.catalog[:refs][attr :refid].xreftext @document.attr :xrefstyle, nil, true
+        - reftext = %([#{attr :refid}]) if reftext.nil?
+      - else
+        - reftext = %([#{attr :refid}])
     - else
-      - text = @text
-
-  text:a (xlink:type="simple" xlink:href="##{attr :refid}" 
-    text:style-name="adoc_a xref" 
+      - reftext = @text
+  text:a (xlink:type="simple" xlink:href="#{refid}"
+    text:style-name="adoc_a xref"
     text:visited-style-name="adoc_a xref visited")
-    =text
+    =reftext
 - when :link
   text:a (xlink:type="simple" 
     xlink:href="#{@target}" 
