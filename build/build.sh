@@ -24,25 +24,6 @@ docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor
 docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f docx test.fodt_
 #end::pdf_convert[]
 
-#echo convert to pdf, odt, docx
-#docker run -d --name libreoffice -p 8100:8100 hdejager/libreoffice-api
-#sleep 3
-#docker cp target/stew/test.fodt libreoffice:/tmp/test.fodt
-#docker exec -i libreoffice unoconv --connection \
-#    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
-#    -f pdf /tmp/test.fodt
-#docker exec -i libreoffice unoconv --connection \
-#    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
-#    -f odt /tmp/test.fodt
-#docker exec -i libreoffice unoconv --connection \
-#    'socket,host=127.0.0.1,port=8100,tcpNoDelay=1;urp;StarOffice.ComponentContext' \
-#    -f docx /tmp/test.fodt
-#docker cp libreoffice:/tmp/test.odt target/stew
-#docker cp libreoffice:/tmp/test.pdf target/stew
-#docker cp libreoffice:/tmp/test.docx target/stew
-#docker kill libreoffice
-#docker rm libreoffice
-
 cp target/stew/test.* target/out
 
 echo test a-od producer
@@ -67,5 +48,3 @@ if grep -q "[1-9][0-9]* fodt errors" target/result_test.log; then
     echo output failed
     exit 1
 fi
-
-
