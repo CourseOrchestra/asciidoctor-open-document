@@ -26,7 +26,7 @@ class MyBasicContentFrame < BasicContentFrame
     @sd["style:graphic-properties"]["style:horizontal-rel"] = "paragraph"
     if !!(@snr =~ / list-level1-admonition /)
       @sd["style:graphic-properties"]["style:rel-width"] = 
-        "#{($def_100_percent_mm.to_f - 13.3) / $def_100_percent_mm * 100}%)"
+        "#{($aodp_100_percent_mm.to_f - 13.3) / $aodp_100_percent_mm * 100}%)"
     else
       @sd["style:graphic-properties"]["style:rel-width"] = "100%"
     end

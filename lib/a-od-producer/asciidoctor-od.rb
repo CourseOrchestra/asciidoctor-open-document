@@ -3,104 +3,104 @@ require 'nokogiri'
 require 'optparse'
 require_relative 'misc'
 
-$defsn_p = "Text_20_body"
-$defsn_tp = "Table_20_Contents"
-$defsn_tp_head = "Table_20_Heading"
-$defsn_tca = "Table"
-$defsn_a = "Internet_20_link"
-$defsn_a_visited = "Visited_20_Internet_20_Link"
-$defsn_h1 = "Heading_20_1"
-$defsn_h2 = "Heading_20_2"
-$defsn_h3 = "Heading_20_3"
-$defsn_h4 = "Heading_20_4"
-$defsn_h5 = "Heading_20_5"
-$defsn_h6 = "Heading_20_6"
-$defsn_h7 = "Heading_20_7"
-$defsn_h8 = "Heading_20_8"
-$defsn_h1_discrete = "Heading_20_1_20_Discrete"
-$defsn_h2_discrete = "Heading_20_2_20_Discrete"
-$defsn_h3_discrete = "Heading_20_3_20_Discrete"
-$defsn_h4_discrete = "Heading_20_4_20_Discrete"
-$defsn_h5_discrete = "Heading_20_5_20_Discrete"
-$defsn_h6_discrete = "Heading_20_6_20_Discrete"
-$defsn_h7_discrete = "Heading_20_7_20_Discrete"
-$defsn_h8_discrete = "Heading_20_8_20_Discrete"
-$defsn_appendix = "Appendix"
-$defsn_span_emphasis = "Emphasis"
-$defsn_span_strong = "Strong_20_Emphasis"
-$defsn_span_subscript = "Subscript"
-$defsn_span_superscript = "Superscript"
-$defsn_span_mark = "Mark"
-$defsn_span_monospaced = "Source_20_Text"
-$defsn_span_unquted_small = "Small"
-$defsn_span_unquted_table_small = "Table_20_Small"
-$defsn_list_arabic = "Numbering_20_123"
-$defsn_list_decimal = "Numbering_20_dec"
-$defsn_list_loweralpha = "Numbering_20_abc"
-$defsn_list_upperalpha = "Numbering_20_ABC"
-$defsn_list_lowerroman = "Numbering_20_ivx"
-$defsn_list_upperroman = "Numbering_20_IVX"
-$defsn_list_lowergreek = "Numbering_20_lg"
-$defsn_list_callouts = "Callouts_20_Numbering"
-$defsn_lca = "List_20_Caption"
-$defsn_tlca = "Table_20_List_20_Caption"
-$defsn_lp = "List"
-$defsn_list_disk = "Bullet_20_Disk"
-$defsn_list_circle = "Bullet_20_Circle"
-$defsn_list_square = "Bullet_20_Square"
-$defsn_list_none = "Bullet_20_None"
-$defsn_list_no_bullet  = "Bullet_20_None"
-$defsn_list_default  = "Bullet_20_Default"
-$defsn_tlp = "Table_20_List"
-$defsn_if = "Graphic"
-$defsn_bip = "Block_20_Image"
-$def_100_percent_mm = 170
-$defsn_ica = "Figure"
-$def_inline_height_mm = 5
-$defsn_orientation_portrait = "Standard"
-$defsn_orientation_landscape = "Landscape"
-$defsn_footnote_anchor = "Footnote_20_anchor"
-$def_stem_dpi = 80
-$defsn_sp = "Equation"
-$defsn_cfp = "Content_20_Frame_20_Paragraph"
-$defsn_tcfp = "Table_20_Content_20_Frame_20_Paragraph"
-$defsn_af = "Admonition"
-$defsn_ahp = "Admonition_20_Heading"
-$defsn_aca = "Admonition_20_Caption"
-$defsn_taca = "Table_20_Admonition_20_Caption"
-$defsn_tahp = "Table_20_Admonition_20_Heading"
-$defsn_ef = "Example"
-$defsn_eca = "Example_20_Caption"
-$defsn_teca = "Table_20_Example_20_Caption"
-$defsn_lica = "Listing_20_Caption"
-$defsn_tlica = "Table_20_Listing_20_Caption"
-$defsn_lip = "Listing"
-$defsn_tlip = "Table_20_Listing"
-$defsn_span_callout = "Callout"
-$defsn_colp = "Callout_20_List"
-$defsn_tcolp = "Table_20_Callout_20_List"
-$defsn_span_callout_list_callout_number = "Callout_20_List_20_Callout_20_Number"
-$def_table_top_margin = "0cm"
-$def_table_bottom_margin = "0.25cm"
-$def_ntable_top_margin = "0.1cm"
-$def_ntable_bottom_margin = "0.1cm"
-$def_toc_pn_column_rel = 1000
-$def_toc_title_column_rel = 16000
-$defsn_toc_h1 = "TOC_20_Level_20_1"
-$defsn_toc_h2 = "TOC_20_Level_20_2"
-$defsn_toc_h3 = "TOC_20_Level_20_3"
-$defsn_toc_h4 = "TOC_20_Level_20_4"
-$defsn_toc_h5 = "TOC_20_Level_20_5"
-$defsn_toc_header = "Contents_20_Heading"
-$defsn_toc_dots_title = "TOC_20_Dots_20_Title"
-$defsn_toc_dots_page_number = "TOC_20_Dots_20_Page_20_Number"
-$defsn_toc_dots_space_page_number = "TOC_20_Dots_20_Space_20_Page_20_Number"
-$defsn_index_separator = "Index_20_Separator"
-$defsn_index_heading = "Zero_20_Height"
-$defsn_index_1 = "Index_20_1"
-$defsn_index_2 = "Index_20_2"
-$defsn_index_3 = "Index_20_3"
-$defsn_alphabetical_index_pagenum = "Alphabetical_20_Index_20_Pagenum"
+$aodp_sn_p = "Text_20_body"
+$aodp_sn_tp = "Table_20_Contents"
+$aodp_sn_tp_head = "Table_20_Heading"
+$aodp_sn_tca = "Table"
+$aodp_sn_a = "Internet_20_link"
+$aodp_sn_a_visited = "Visited_20_Internet_20_Link"
+$aodp_sn_h1 = "Heading_20_1"
+$aodp_sn_h2 = "Heading_20_2"
+$aodp_sn_h3 = "Heading_20_3"
+$aodp_sn_h4 = "Heading_20_4"
+$aodp_sn_h5 = "Heading_20_5"
+$aodp_sn_h6 = "Heading_20_6"
+$aodp_sn_h7 = "Heading_20_7"
+$aodp_sn_h8 = "Heading_20_8"
+$aodp_sn_h1_discrete = "Heading_20_1_20_Discrete"
+$aodp_sn_h2_discrete = "Heading_20_2_20_Discrete"
+$aodp_sn_h3_discrete = "Heading_20_3_20_Discrete"
+$aodp_sn_h4_discrete = "Heading_20_4_20_Discrete"
+$aodp_sn_h5_discrete = "Heading_20_5_20_Discrete"
+$aodp_sn_h6_discrete = "Heading_20_6_20_Discrete"
+$aodp_sn_h7_discrete = "Heading_20_7_20_Discrete"
+$aodp_sn_h8_discrete = "Heading_20_8_20_Discrete"
+$aodp_sn_appendix = "Appendix"
+$aodp_sn_span_emphasis = "Emphasis"
+$aodp_sn_span_strong = "Strong_20_Emphasis"
+$aodp_sn_span_subscript = "Subscript"
+$aodp_sn_span_superscript = "Superscript"
+$aodp_sn_span_mark = "Mark"
+$aodp_sn_span_monospaced = "Source_20_Text"
+$aodp_sn_span_unquted_small = "Small"
+$aodp_sn_span_unquted_table_small = "Table_20_Small"
+$aodp_sn_list_arabic = "Numbering_20_123"
+$aodp_sn_list_decimal = "Numbering_20_dec"
+$aodp_sn_list_loweralpha = "Numbering_20_abc"
+$aodp_sn_list_upperalpha = "Numbering_20_ABC"
+$aodp_sn_list_lowerroman = "Numbering_20_ivx"
+$aodp_sn_list_upperroman = "Numbering_20_IVX"
+$aodp_sn_list_lowergreek = "Numbering_20_lg"
+$aodp_sn_list_callouts = "Callouts_20_Numbering"
+$aodp_sn_lca = "List_20_Caption"
+$aodp_sn_tlca = "Table_20_List_20_Caption"
+$aodp_sn_lp = "List"
+$aodp_sn_list_disk = "Bullet_20_Disk"
+$aodp_sn_list_circle = "Bullet_20_Circle"
+$aodp_sn_list_square = "Bullet_20_Square"
+$aodp_sn_list_none = "Bullet_20_None"
+$aodp_sn_list_no_bullet  = "Bullet_20_None"
+$aodp_sn_list_default  = "Bullet_20_Default"
+$aodp_sn_tlp = "Table_20_List"
+$aodp_sn_if = "Graphic"
+$aodp_sn_bip = "Block_20_Image"
+$aodp_100_percent_mm = 170
+$aodp_sn_ica = "Figure"
+$aodp_inline_height_mm = 5
+$aodp_sn_orientation_portrait = "Standard"
+$aodp_sn_orientation_landscape = "Landscape"
+$aodp_sn_footnote_anchor = "Footnote_20_anchor"
+$aodp_stem_dpi = 80
+$aodp_sn_sp = "Equation"
+$aodp_sn_cfp = "Content_20_Frame_20_Paragraph"
+$aodp_sn_tcfp = "Table_20_Content_20_Frame_20_Paragraph"
+$aodp_sn_af = "Admonition"
+$aodp_sn_ahp = "Admonition_20_Heading"
+$aodp_sn_aca = "Admonition_20_Caption"
+$aodp_sn_taca = "Table_20_Admonition_20_Caption"
+$aodp_sn_tahp = "Table_20_Admonition_20_Heading"
+$aodp_sn_ef = "Example"
+$aodp_sn_eca = "Example_20_Caption"
+$aodp_sn_teca = "Table_20_Example_20_Caption"
+$aodp_sn_lica = "Listing_20_Caption"
+$aodp_sn_tlica = "Table_20_Listing_20_Caption"
+$aodp_sn_lip = "Listing"
+$aodp_sn_tlip = "Table_20_Listing"
+$aodp_sn_span_callout = "Callout"
+$aodp_sn_colp = "Callout_20_List"
+$aodp_sn_tcolp = "Table_20_Callout_20_List"
+$aodp_sn_span_callout_list_callout_number = "Callout_20_List_20_Callout_20_Number"
+$aodp_table_top_margin = "0cm"
+$aodp_table_bottom_margin = "0.25cm"
+$aodp_ntable_top_margin = "0.1cm"
+$aodp_ntable_bottom_margin = "0.1cm"
+$aodp_toc_pn_column_rel = 1000
+$aodp_toc_title_column_rel = 16000
+$aodp_sn_toc_h1 = "TOC_20_Level_20_1"
+$aodp_sn_toc_h2 = "TOC_20_Level_20_2"
+$aodp_sn_toc_h3 = "TOC_20_Level_20_3"
+$aodp_sn_toc_h4 = "TOC_20_Level_20_4"
+$aodp_sn_toc_h5 = "TOC_20_Level_20_5"
+$aodp_sn_toc_header = "Contents_20_Heading"
+$aodp_sn_toc_dots_title = "TOC_20_Dots_20_Title"
+$aodp_sn_toc_dots_page_number = "TOC_20_Dots_20_Page_20_Number"
+$aodp_sn_toc_dots_space_page_number = "TOC_20_Dots_20_Space_20_Page_20_Number"
+$aodp_sn_index_separator = "Index_20_Separator"
+$aodp_sn_index_heading = "Zero_20_Height"
+$aodp_sn_index_1 = "Index_20_1"
+$aodp_sn_index_2 = "Index_20_2"
+$aodp_sn_index_3 = "Index_20_3"
+$aodp_sn_alphabetical_index_pagenum = "Alphabetical_20_Index_20_Pagenum"
 
 =begin
 tag::algorithm_description[]
@@ -144,12 +144,12 @@ class StyleSubstitutor
                                  'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
     index_style_list.each do |index_style|
       snr = " #{index_style} "
-      index_style.value = $defsn_index_separator if !!(snr =~ / index\_separator /)
-      index_style.value = $defsn_index_heading if !!(snr =~ / index\_heading /)
-      index_style.value = $defsn_index_1 if !!(snr =~ / index\_1 /)
-      index_style.value = $defsn_index_2 if !!(snr =~ / index\_2 /)
-      index_style.value = $defsn_index_3 if !!(snr =~ / index\_3 /)
-      index_style.value = $defsn_alphabetical_index_pagenum if !!(snr =~ / alphabetical\_index\_pagenum /)
+      index_style.value = $aodp_sn_index_separator if !!(snr =~ / index\_separator /)
+      index_style.value = $aodp_sn_index_heading if !!(snr =~ / index\_heading /)
+      index_style.value = $aodp_sn_index_1 if !!(snr =~ / index\_1 /)
+      index_style.value = $aodp_sn_index_2 if !!(snr =~ / index\_2 /)
+      index_style.value = $aodp_sn_index_3 if !!(snr =~ / index\_3 /)
+      index_style.value = $aodp_sn_alphabetical_index_pagenum if !!(snr =~ / alphabetical\_index\_pagenum /)
     end
   end
   def h_subs_lists
@@ -158,7 +158,7 @@ class StyleSubstitutor
     list_style_list.each do |list_style|
       re = / [ou]lp_s_([a-z-]+) /
       substitued_olist_style = " #{list_style} ".match(re)[1].gsub "-", "_"
-      list_style.value = eval("$defsn_list_#{substitued_olist_style}")
+      list_style.value = eval("$aodp_sn_list_#{substitued_olist_style}")
     end
   end
   def h_subs_links
@@ -171,8 +171,8 @@ class StyleSubstitutor
           anchor['text:style-name'] = "Index_20_Link"
           anchor['text:visited-style-name'] = "Index_20_Link"
         else
-          anchor['text:style-name'] = $defsn_a
-          anchor['text:visited-style-name'] = $defsn_a_visited
+          anchor['text:style-name'] = $aodp_sn_a
+          anchor['text:visited-style-name'] = $aodp_sn_a_visited
         end
       end
     end
@@ -182,7 +182,7 @@ class StyleSubstitutor
       @pre.xpath("//text:span/@text:style-name[starts-with(., 'adoc_fra ')]", 
         'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0') 
     footnotes_ref_style_list.each do |footnote_ref_style|
-      footnote_ref_style.value = $defsn_footnote_anchor
+      footnote_ref_style.value = $aodp_sn_footnote_anchor
     end
   end
   def h_subs_variable_set_fields
@@ -438,12 +438,12 @@ class BasicTable < BasicHelper
       "always" if !!(@snr =~ / keep_with_next /)
   end
   def h_fo_margins
-    @sd["style:table-properties"]["fo:margin-top"] = $def_table_top_margin
-    @sd["style:table-properties"]["fo:margin-bottom"] = $def_table_bottom_margin unless
+    @sd["style:table-properties"]["fo:margin-top"] = $aodp_table_top_margin
+    @sd["style:table-properties"]["fo:margin-bottom"] = $aodp_table_bottom_margin unless
       (@snr =~ / no_margin_bottom /)
     if !!(@snr =~ / in_cell_[0-9] /)
-      @sd["style:table-properties"]["fo:margin-top"] = $def_ntable_top_margin
-      @sd["style:table-properties"]["fo:margin-bottom"] = $def_ntable_bottom_margin unless
+      @sd["style:table-properties"]["fo:margin-top"] = $aodp_ntable_top_margin
+      @sd["style:table-properties"]["fo:margin-bottom"] = $aodp_ntable_bottom_margin unless
         (@snr =~ / no_margin_bottom /)
     end
   end
@@ -496,7 +496,7 @@ end
 
 class BasicParagraph < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_p
+    @sd[:parent_style_name] = $aodp_sn_p
   end
 end
 
@@ -504,9 +504,9 @@ class BasicTableParagraph < BasicHelper
   def h_parent_style_name
     re = /( head )|( tcep_s_header )/
     if !!(@snr =~ re)
-      @sd[:parent_style_name] = $defsn_tp_head
+      @sd[:parent_style_name] = $aodp_sn_tp_head
     else 
-      @sd[:parent_style_name] = $defsn_tp
+      @sd[:parent_style_name] = $aodp_sn_tp
     end
   end
   def h_fo_text_align
@@ -523,7 +523,7 @@ end
 
 class BasicTableCaption < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_tca
+    @sd[:parent_style_name] = $aodp_sn_tca
   end
 end
 
@@ -532,12 +532,12 @@ class BasicSectionHeader < BasicHelper
     re = / sp_sl_([1-8]) /
     section_level = @snr.match(re)[1]
     if !!(@snr =~ / sp_sn_appendix /)
-      @sd[:parent_style_name] = $defsn_appendix
+      @sd[:parent_style_name] = $aodp_sn_appendix
     else
       if !!(@snr =~ / sp_s_discrete /)
-        @sd[:parent_style_name] = eval("$defsn_h#{section_level}_discrete")
+        @sd[:parent_style_name] = eval("$aodp_sn_h#{section_level}_discrete")
       else
-        @sd[:parent_style_name] = eval("$defsn_h#{section_level}")
+        @sd[:parent_style_name] = eval("$aodp_sn_h#{section_level}")
       end
     end
   end
@@ -548,11 +548,11 @@ class BasicInlineQuoted < BasicHelper
     re = / t_([a-z]+) /
     type = @snr.match(re)[1]
     if type != "unquoted"
-      @sd[:parent_style_name] = eval("$defsn_span_#{type}")
+      @sd[:parent_style_name] = eval("$aodp_sn_span_#{type}")
     else
       if !!(@snr =~ / small /)
-        @sd[:parent_style_name] = $defsn_span_unquted_small
-        @sd[:parent_style_name] = $defsn_span_unquted_table_small if !!(@snr =~ / in_cell_[0-9] /)
+        @sd[:parent_style_name] = $aodp_sn_span_unquted_small
+        @sd[:parent_style_name] = $aodp_sn_span_unquted_table_small if !!(@snr =~ / in_cell_[0-9] /)
       end
     end
   end
@@ -561,27 +561,27 @@ end
 
 class BasicListCaption < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_lca
-    @sd[:parent_style_name] = $defsn_tlca if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_lca
+    @sd[:parent_style_name] = $aodp_sn_tlca if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicListParagraph < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_lp
+    @sd[:parent_style_name] = $aodp_sn_lp
   end
 end
 
 class BasicTableListParagraph < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_tlp
+    @sd[:parent_style_name] = $aodp_sn_tlp
   end
 end
 
 class BasicBlockImageParagraph < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_bip
-    @sd[:parent_style_name] = $defsn_sp if !!(@snr =~ / ip_s_amp /)
+    @sd[:parent_style_name] = $aodp_sn_bip
+    @sd[:parent_style_name] = $aodp_sn_sp if !!(@snr =~ / ip_s_amp /)
   end
 end
 
@@ -604,22 +604,22 @@ end::plusfeatures[]
 
 class BasicImageFrame < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_if 
+    @sd[:parent_style_name] = $aodp_sn_if
   end
   def h_svg_width_height
     if !!(@snr =~ / ip_ibt_inline /) and !!(@snr !~ / ip_w_/) and !!(@snr !~ / ip_fr_/)
-      @snr += "ip_fr_#{$def_100_percent_mm}x#{$def_inline_height_mm}mm "
+      @snr += "ip_fr_#{$aodp_100_percent_mm}x#{$aodp_inline_height_mm}mm "
     end
 
     if !!(@snr =~ / ip_s_amp /)
       # maximum as a square with max percent for formulae looks quite logical 
       # at least when writing this comment
-        @snr += "ip_fr_#{$def_100_percent_mm}x#{$def_100_percent_mm}mm ip_sd_#{$def_stem_dpi} "
+        @snr += "ip_fr_#{$aodp_100_percent_mm}x#{$aodp_100_percent_mm}mm ip_sd_#{$aodp_stem_dpi} "
     end
 
     re = / ip_w_([0-9\.]+[a-z_]+) /
     unless !!(@snr =~ re)
-      img_ew = "70_prc"     
+      img_ew = "70_prc"
     else
       img_ew = @snr.match(re)[1]
     end
@@ -655,7 +655,7 @@ class BasicImageFrame < BasicHelper
         img_cw = img_cw / srcdpi * 25.4
         img_cunit = "mm"
       elsif img_cunit == "_prc"
-        img_cw = ($def_100_percent_mm * img_cw/100).round(1)
+        img_cw = ($aodp_100_percent_mm * img_cw/100).round(1)
         img_cunit = "mm"
       end
       y2x_ratio = 100.0
@@ -688,7 +688,7 @@ end
 
 class BasicImageCaption < BasicHelper 
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_ica
+    @sd[:parent_style_name] = $aodp_sn_ica
   end
 end
 
@@ -710,7 +710,7 @@ end::plusfeatures[]
 class BasicOrientation < BasicHelper 
   def h_master_page_name
     re = / (portrait|landscape) /
-    @sd[:master_page_name] = eval("$defsn_orientation_#{@snr.match(re)[1]}") if !!(@snr =~ re)
+    @sd[:master_page_name] = eval("$aodp_sn_orientation_#{@snr.match(re)[1]}") if !!(@snr =~ re)
   end
 end
 
@@ -732,8 +732,8 @@ end::notimplemented[]
 
 class BasicContentFrame < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_af if !!(@snr =~ / cft_admonition /)
-    @sd[:parent_style_name] = $defsn_ef if !!(@snr =~ / cft_example /)
+    @sd[:parent_style_name] = $aodp_sn_af if !!(@snr =~ / cft_admonition /)
+    @sd[:parent_style_name] = $aodp_sn_ef if !!(@snr =~ / cft_example /)
   end
   def h_style_vertical_pos
     @sd["style:graphic-properties"]["style:vertical-pos"] = "top" 
@@ -746,69 +746,69 @@ class BasicContentFrame < BasicHelper
     @sd["style:graphic-properties"]["style:horizontal-pos"] = "right"
     @sd["style:graphic-properties"]["style:horizontal-rel"] = "paragraph"
     @sd["style:graphic-properties"]["style:rel-width"] = "100%"
-    #@sd["style:graphic-properties"]["svg:width"] = $def_100_percent_mm
+    #@sd["style:graphic-properties"]["svg:width"] = $aodp_100_percent_mm
   end
 end
 
 
 class BasicContentFrameParagraph < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_cfp
-    @sd[:parent_style_name] = $defsn_tcfp if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_cfp
+    @sd[:parent_style_name] = $aodp_sn_tcfp if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicAdmonitionHeadingParagraph < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_ahp
-    @sd[:parent_style_name] = $defsn_tahp if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_ahp
+    @sd[:parent_style_name] = $aodp_sn_tahp if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicAdmonitionCaption < BasicHelper 
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_aca
-    @sd[:parent_style_name] = $defsn_taca if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_aca
+    @sd[:parent_style_name] = $aodp_sn_taca if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicExampleCaption < BasicHelper 
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_eca
-    @sd[:parent_style_name] = $defsn_teca if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_eca
+    @sd[:parent_style_name] = $aodp_sn_teca if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicListingCaption < BasicHelper 
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_lica
-    @sd[:parent_style_name] = $defsn_tlica if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_lica
+    @sd[:parent_style_name] = $aodp_sn_tlica if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicListingParagraph < BasicHelper 
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_lip
-    @sd[:parent_style_name] = $defsn_tlip if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_lip
+    @sd[:parent_style_name] = $aodp_sn_tlip if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicInlineCallout < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = eval("$defsn_span_callout")
+    @sd[:parent_style_name] = eval("$aodp_sn_span_callout")
   end
 end
 
 class BasicCalloutListItemParagraph < BasicHelper 
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_colp
-    @sd[:parent_style_name] = $defsn_tcolp if !!(@snr =~ / in_cell_[0-9] /)
+    @sd[:parent_style_name] = $aodp_sn_colp
+    @sd[:parent_style_name] = $aodp_sn_tcolp if !!(@snr =~ / in_cell_[0-9] /)
   end
 end
 
 class BasicCalloutListCalloutNumber < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_span_callout_list_callout_number
+    @sd[:parent_style_name] = $aodp_sn_span_callout_list_callout_number
   end
 end
 
@@ -817,10 +817,10 @@ class BasicTocTableColumn < BasicHelper
   def h_style_column_width
     re = / sec_pn /
     @sd["style:table-column-properties"]["style:rel-column-width"] =
-      "#{$def_toc_pn_column_rel}*"  if !!(@snr =~ re)
+      "#{$aodp_toc_pn_column_rel}*"  if !!(@snr =~ re)
     re = / sec_title /
     @sd["style:table-column-properties"]["style:rel-column-width"] =
-      "#{$def_toc_title_column_rel}*"  if !!(@snr =~ re)
+      "#{$aodp_toc_title_column_rel}*"  if !!(@snr =~ re)
   end
 end
 
@@ -835,7 +835,7 @@ class BasicTocParagraph < BasicHelper
   def h_parent_style_name
     re = / slevel\_([0-9]) /
     slevel = @snr.match(re)[1]
-    @sd[:parent_style_name] = eval("$defsn_toc_h#{slevel}")
+    @sd[:parent_style_name] = eval("$aodp_sn_toc_h#{slevel}")
   end
   def h_style_margin_left
     re = / sec_pn /
@@ -845,15 +845,15 @@ end
 
 class BasicTocHeader < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = eval("$defsn_toc_header")
+    @sd[:parent_style_name] = eval("$aodp_sn_toc_header")
   end
 end
 
 class BasicTocInlineQuoted < BasicHelper
   def h_parent_style_name
-    @sd[:parent_style_name] = $defsn_toc_dots_title if !!(@snr =~ / dots_title /)
-    @sd[:parent_style_name] = $defsn_toc_dots_page_number if !!(@snr =~ / dots_page_number /)
-    @sd[:parent_style_name] = $defsn_toc_dots_space_page_number if !!(@snr =~ / dots_space_page_number /)
+    @sd[:parent_style_name] = $aodp_sn_toc_dots_title if !!(@snr =~ / dots_title /)
+    @sd[:parent_style_name] = $aodp_sn_toc_dots_page_number if !!(@snr =~ / dots_page_number /)
+    @sd[:parent_style_name] = $aodp_sn_toc_dots_space_page_number if !!(@snr =~ / dots_space_page_number /)
   end
 end
 class StyleToXml
