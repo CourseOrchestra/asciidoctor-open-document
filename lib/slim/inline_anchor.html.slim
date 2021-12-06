@@ -1,9 +1,10 @@
 - case @type
 - when :xref
-  - refid = "#{attr :refid}"
   - if (path = attributes['path'])
+    - refid = "#{attr :refid}"
     - reftext = text || path
   - else
+    - refid = "##{attr :refid}"
     - if @text.nil?
       - unless @document.catalog[:refs][attr :refid].nil?
         - reftext = @document.catalog[:refs][attr :refid].xreftext @document.attr :xrefstyle, nil, true
