@@ -80,17 +80,22 @@ $aodp_sn_span_callout = "Callout"
 $aodp_sn_colp = "Callout_20_List"
 $aodp_sn_tcolp = "Table_20_Callout_20_List"
 $aodp_sn_span_callout_list_callout_number = "Callout_20_List_20_Callout_20_Number"
-$aodp_table_top_margin = "0cm"
-$aodp_table_bottom_margin = "0.25cm"
-$aodp_ntable_top_margin = "0.1cm"
-$aodp_ntable_bottom_margin = "0.1cm"
-$aodp_toc_pn_column_rel = 1000
-$aodp_toc_title_column_rel = 16000
+$aodp_table_margin_top = "0cm"
+$aodp_table_margin_bottom = "0.25cm"
+$aodp_ntable_margin_top = "0.1cm"
+$aodp_ntable_margin_bottom = "0.1cm"
+$aodp_toc_pn_column = "15mm"
+$aodp_toc_title_column = "155mm"
 $aodp_sn_toc_h1 = "TOC_20_Level_20_1"
 $aodp_sn_toc_h2 = "TOC_20_Level_20_2"
 $aodp_sn_toc_h3 = "TOC_20_Level_20_3"
 $aodp_sn_toc_h4 = "TOC_20_Level_20_4"
 $aodp_sn_toc_h5 = "TOC_20_Level_20_5"
+$aodp_sn_toc_pn_h1 = "TOC_20_Page_20_Number"
+$aodp_sn_toc_pn_h2 = "TOC_20_Page_20_Number"
+$aodp_sn_toc_pn_h3 = "TOC_20_Page_20_Number"
+$aodp_sn_toc_pn_h4 = "TOC_20_Page_20_Number"
+$aodp_sn_toc_pn_h5 = "TOC_20_Page_20_Number"
 $aodp_sn_toc_header = "Contents_20_Heading"
 $aodp_sn_toc_dots_title = "TOC_20_Dots_20_Title"
 $aodp_sn_toc_dots_page_number = "TOC_20_Dots_20_Page_20_Number"
@@ -438,12 +443,12 @@ class BasicTable < BasicHelper
       "always" if !!(@snr =~ / keep_with_next /)
   end
   def h_fo_margins
-    @sd["style:table-properties"]["fo:margin-top"] = $aodp_table_top_margin
-    @sd["style:table-properties"]["fo:margin-bottom"] = $aodp_table_bottom_margin unless
+    @sd["style:table-properties"]["fo:margin-top"] = $aodp_table_margin_top
+    @sd["style:table-properties"]["fo:margin-bottom"] = $aodp_table_margin_bottom unless
       (@snr =~ / no_margin_bottom /)
     if !!(@snr =~ / in_cell_[0-9] /)
-      @sd["style:table-properties"]["fo:margin-top"] = $aodp_ntable_top_margin
-      @sd["style:table-properties"]["fo:margin-bottom"] = $aodp_ntable_bottom_margin unless
+      @sd["style:table-properties"]["fo:margin-top"] = $aodp_ntable_margin_top
+      @sd["style:table-properties"]["fo:margin-bottom"] = $aodp_ntable_margin_bottom unless
         (@snr =~ / no_margin_bottom /)
     end
   end
@@ -816,11 +821,11 @@ end
 class BasicTocTableColumn < BasicHelper
   def h_style_column_width
     re = / sec_pn /
-    @sd["style:table-column-properties"]["style:rel-column-width"] =
-      "#{$aodp_toc_pn_column_rel}*"  if !!(@snr =~ re)
+    @sd["style:table-column-properties"]["style:column-width"] =
+      "#{$aodp_toc_pn_column}"  if !!(@snr =~ re)
     re = / sec_title /
-    @sd["style:table-column-properties"]["style:rel-column-width"] =
-      "#{$aodp_toc_title_column_rel}*"  if !!(@snr =~ re)
+    @sd["style:table-column-properties"]["style:column-width"] =
+      "#{$aodp_toc_title_column}"  if !!(@snr =~ re)
   end
 end
 
@@ -836,6 +841,8 @@ class BasicTocParagraph < BasicHelper
     re = / slevel\_([0-9]) /
     slevel = @snr.match(re)[1]
     @sd[:parent_style_name] = eval("$aodp_sn_toc_h#{slevel}")
+    re = / sec_pn /
+    @sd[:parent_style_name] = eval("$aodp_sn_toc_pn_h#{slevel}") if !!(@snr =~ re)
   end
   def h_style_margin_left
     re = / sec_pn /
