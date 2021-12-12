@@ -126,6 +126,26 @@ To extend setting predefined styles routine just make a descendant of `StyleSubs
 end::algorithm_description[]
 =end
 
+class Initiator
+  def initialize template
+    @template = template
+    h_init_globals_from_template
+  end
+  def h_init_globals_from_template
+    meta_user_defineds = @template.xpath("//meta:user-defined",
+                                         'meta' => 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0' )
+    meta_user_defineds.each do |meta_user_defined|
+      meta_name = meta_user_defined.xpath("@meta:name",
+                                          'meta' => 'urn:oasis:names:tc:opendocument:xmlns:meta:1.0').to_s
+      text = meta_user_defined.text.to_s
+      aod_param = "$aodp_#{meta_name.gsub! '-', '_'}"
+      if eval("defined?(#{aod_param})") == 'global-variable'
+        eval("#{aod_param} = '#{text}'")
+      end
+    end
+  end
+end
+
 class StyleSubstitutor
   def initialize pre, template
     @pre = pre
@@ -925,6 +945,7 @@ end
 template = File.open(template_file) { |f| Nokogiri::XML(f) }
 pre = File.open(input_file) { |f| Nokogiri::XML(f) }
 
+Initiator.new(template)
 StyleSubstitutor.new(pre, template)
 
 tagged_nodes =
