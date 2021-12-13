@@ -2,6 +2,15 @@ require "minitest/autorun"
 require_relative "../lib/a-od-producer/misc.rb"
 
 class TestMiscMethods < Minitest::Test
+  describe "Method text_measurement_to_mm " do
+    it "should correctly calculate measurement in mm" do
+      assert_equal MiscMethods.text_measurement_to_mm("1pt").round(3), 0.353
+      assert_equal MiscMethods.text_measurement_to_mm("1.5pt").round(3), 0.529
+      assert_raises RuntimeError do
+        MiscMethods.measurement_to_mm(1, "inches")
+      end
+    end
+  end
   describe "Method measurement_to_mm " do
     it "should correctly calculate measurement in mm" do
       assert_equal MiscMethods.measurement_to_mm(1, "mm").round(3), 1.000

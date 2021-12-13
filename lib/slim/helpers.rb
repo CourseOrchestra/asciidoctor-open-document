@@ -11,7 +11,7 @@ module Slim::Helpers
 
   def set_current_list_item_style op, list_item_style = ""
     $aod_ll += op
-    $aod_current_list_item_style[$aod_ll] = "in_list_item_#{$aod_tl} #{list_item_style}" if $aod_ll > 0
+    $aod_current_list_item_style[$aod_ll] = "in_list_item_#{$aod_ll} #{list_item_style}" if $aod_ll > 0
   end
 
   # Calculates style based on role and position in some elements
