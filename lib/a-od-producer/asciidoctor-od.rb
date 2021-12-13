@@ -106,6 +106,9 @@ $aodp_sn_index_1 = "Index_20_1"
 $aodp_sn_index_2 = "Index_20_2"
 $aodp_sn_index_3 = "Index_20_3"
 $aodp_sn_alphabetical_index_pagenum = "Alphabetical_20_Index_20_Pagenum"
+$aodp_assume_src_dpi = 130
+$aodp_list_first_level_indent = "12.7mm"
+$aodp_list_other_levels_indent = "6.4mm"
 
 =begin
 tag::algorithm_description[]
@@ -649,6 +652,8 @@ class BasicImageFrame < BasicHelper
       img_ew = @snr.match(re)[1]
     end
 
+
+
     re = / ip_t_([a-z]+) /
     type = @snr.match(re)[1]
 
@@ -665,14 +670,32 @@ class BasicImageFrame < BasicHelper
     end
 
     re = / ip_sd_([0-9]+) /
-    srcdpi = 100 # assume image is 100dpi
+    srcdpi = $aodp_assume_src_dpi
     srcdpi = @snr.match(re)[1].to_f if !!(@snr =~ re)
 
     re = / ip_su_([a-z]+) /
     svgunit = 'px'
     svgunit = @snr.match(re)[1] if !!(@snr =~ re)
 
-    if !!(@snr !~ / ip_fr_/)
+    # if guessing then use fictrect strategy with a 100% square minus list indent
+    # todo should count 100% from parent inner width
+    guess_width = false
+    if !!(@snr !~ / ip_fr_/) && !!(@snr !~ / ip_w_[0-9]/)
+      list_level = 0
+      re = / in_list_item_([0-9]) /
+      list_level = @snr.match(re)[1].to_f if !!(@snr =~ re)
+      list_first_level_indent_mm = MiscMethods.text_measurement_to_mm $aodp_list_first_level_indent
+      list_other_levels_indent_mm = MiscMethods.text_measurement_to_mm $aodp_list_other_levels_indent
+      rect_w = $aodp_100_percent_mm
+      rect_h = $aodp_100_percent_mm
+      if list_level > 0
+        rect_w = rect_w - list_first_level_indent_mm - (list_level - 1) *  list_other_levels_indent_mm
+      end
+      guess_width = true
+    end
+
+
+    if !!(@snr !~ / ip_fr_/) && !guess_width
       re = /([0-9\.]+)([a-z_]+)/
       img_cw = img_ew.match(re)[1].to_f
       img_cunit = img_ew.match(re)[2]
