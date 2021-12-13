@@ -1,4 +1,14 @@
 class MiscMethods
+  def self.text_measurement_to_mm text_measurement
+    re = /^([0-9]+[\.]?[0-9]*)([a-z]+)$/
+    if  !!(text_measurement =~ re)
+      measurement = text_measurement.match(re)[1].to_f
+      unit = text_measurement.match(re)[2]
+    else
+      raise "\"#{text_measurement}\" is not a text measurement value"
+    end
+    measurement_to_mm measurement, unit
+  end
   def self.measurement_to_mm measurement, unit
     coef = {mm: 1.0,
             cm: 10.0,

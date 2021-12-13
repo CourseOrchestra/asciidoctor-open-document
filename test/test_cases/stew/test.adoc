@@ -13,11 +13,6 @@
 
 {nbsp}
 
-|===
-l| cat foo.txt \| grep bar
-|===
-
-
 Some sort of [((preamble))]
 multiline paragraph.
 
@@ -47,7 +42,7 @@ https://asciidoctor.org/[Asciidoctor]
 == Diagram extension
 
 .A diagram in adoc file
-[plantuml, diagram-classes, png, fitrect="170x225mm", srcdpi=300, width = "70%"]   
+[plantuml, diagram-classes, png, fitrect="170x225mm", srcdpi=300, width = "70%"]
 ....
 skinparam dpi 300
 
@@ -79,7 +74,7 @@ class BasicParagraph < BasicHelper <1> <2>
   def h_parent_style_name <2>
     @sd[:parent_style_name] = $defsn_p
     a = b + <3>
-        abc[1] 
+        abc[1]
   end
 end
 ----
@@ -136,7 +131,7 @@ a|
 
 [cols="1,2"]
 !===
-!Just for the fun of it 
+!Just for the fun of it
 a!
 .Some header
 [example]
@@ -149,9 +144,9 @@ A deeply digged example. Interesting to see the number
 
 Some text.
 
-[IMPORTANT] 
+[IMPORTANT]
 .Feeding the Werewolves
-==== 
+====
 While werewolves are hardy community members, keep in mind the following dietary concerns:
 
 . They are allergic to cinnamon.
@@ -178,7 +173,7 @@ C = \alpha + \beta Y^{\gamma} + \epsilon
 .({counter: eq})
 ++++
 \begin{bmatrix}
-a & b \\ 
+a & b \\
 c & d
 \end{bmatrix}\binom{n}{k}
 ++++
@@ -240,9 +235,15 @@ image::ruler.png[fitrect="170x225mm", srcdpi=100, width = "10%"]
 
 [square]
 .Marked list heading
-* First point
-** Subpoint 1
-. And a little mix-in
+* First point (long line with fitted width)
++
+image::long_line.png[]
+** Subpoint 1 (long line with fitted width)
++
+image::long_line.png[]
+. And a little mix-in (short line that shouldn't be fitted due to size)
++
+image::short_line.png[]
 ** Subpoint 2
 * Second point with no bullet
 * Third point
@@ -294,7 +295,7 @@ Example of informal table with no vertical lines.
 [.portrait]
 === A Test Section 1.1 (portrait)
 
-A Table (<<t1>>) Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. 
+A Table (<<t1>>) Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text. A Test paragraph text.
 
 [.text-align-center]
 A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text. A Test centered paragraph text.
@@ -307,16 +308,16 @@ A Test centered paragraph text. A Test centered paragraph text. A Test centered 
 
 .^|b1 centered vertically
 |c1 Here a very long multiline text is situated in order to show that vertical alignment works
-2+a|a2 spanned 
+2+a|a2 spanned
 
-Asciidoc contents 
+Asciidoc contents
 
 * a
 . a1
 . a2
 +
 And some text as a paragraph to check paragraph in list alignment
-* b 
+* b
 
 |c2
 h|a3 (cell header)
@@ -351,10 +352,10 @@ And some TIP in a table
 3+|a9
 3+|a10
 
-|===  
+|===
 
 [.text-align-right]
-A Test right-aligned paragraph text. 
+A Test right-aligned paragraph text.
 
 == Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 1 (doesn't hang over page number)
 === Some long, very long, very very long, very very very long, very very very very long h e a d i n g of level 2
@@ -367,6 +368,3 @@ A Test right-aligned paragraph text.
 == Appendix example
 
 An appendix
-
-[index]
-== An index
