@@ -6,6 +6,7 @@
 :doctype: book
 :source-highlighter: rouge
 :toc: center
+:toclevels: 5
 :toc-title: Table of contents (Asciidoctor)
 
 
