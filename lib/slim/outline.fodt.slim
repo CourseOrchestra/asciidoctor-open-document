@@ -1,3 +1,4 @@
+- sectnumlevels = @document.attributes["sectnumlevels"] || 3
 - unless sections.empty?
   - toclevels ||= (document.attr 'toclevels', 3).to_i
   - slevel = section_level sections.first
@@ -10,7 +11,7 @@
         table:table-cell table:style-name="adoc_tocce sec_title"
           text:p text:style-name="adoc_tocp sec_title slevel_#{slevel}"
             text:a xlink:type="simple" xlink:href="##{sec.id}" text:style-name="adoc_a toc_entry"
-              |#{sec.numbered ? sec.sectnum : ""} #{sec.title}
+              |#{(sec.numbered  && slevel <= sectnumlevels) ? sec.sectnum : ""} #{sec.title}
               text:span text:style-name = "adoc_tociq dots_space_dots_title"
                 ="&#160;"
               text:span text:style-name = "adoc_tociq dots_title"
