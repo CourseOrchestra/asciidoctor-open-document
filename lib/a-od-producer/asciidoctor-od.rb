@@ -109,6 +109,7 @@ $aodp_sn_alphabetical_index_pagenum = "Alphabetical_20_Index_20_Pagenum"
 $aodp_assume_src_dpi = 130
 $aodp_list_first_level_indent = "12.7mm"
 $aodp_list_other_levels_indent = "6.4mm"
+$aodp_sn_preamble_before_paragraph = "Preamble_20_Before_20_Paragraph"
 
 =begin
 tag::algorithm_description[]
@@ -438,6 +439,8 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_toch[ ]/) end
   def h_basic_toc_inline_quoted; BasicTocInlineQuoted.new(@sn, @sd) if
     !!(@sn =~ /^adoc_tociq[ ]/) end
+  def h_basic_preamble_first_paragraph; BasicPreambleFirstParagraph.new(@sn, @sd) if
+    !!(@sn =~ /^adoc_pr[ ]/) end
 end
 
 
@@ -786,7 +789,7 @@ class BasicContentFrame < BasicHelper
   def h_style_vertical_pos
     @sd["style:graphic-properties"]["style:vertical-pos"] = "top" 
     @sd["style:graphic-properties"]["style:vertical-rel"] = "baseline" 
-    @sd["style:graphic-properties"]["text:anchor-type"] = "paragraph" 
+    @sd["style:graphic-properties"]["text:anchor-type"] = "paragraph"
     @sd["style:graphic-properties"]["style:flow-with-text"] = "true" 
     @sd["style:graphic-properties"]["style:wrap"] = "none" 
   end
@@ -906,6 +909,14 @@ class BasicTocInlineQuoted < BasicHelper
     @sd[:parent_style_name] = $aodp_sn_toc_dots_space_page_number if !!(@snr =~ / dots_space_page_number /)
   end
 end
+
+
+class BasicPreambleFirstParagraph < BasicHelper
+  def h_parent_style_name
+    @sd[:parent_style_name] = $aodp_sn_preamble_before_paragraph if !!(@snr =~ / before-paragraph /)
+  end
+end
+
 class StyleToXml
   def self.to_doc style_rep, xml_node
     style_rep.each do |sn, sd|
