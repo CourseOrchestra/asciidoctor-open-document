@@ -461,7 +461,7 @@ class BasicTable < BasicHelper
     @sd["style:table-properties"]["style:rel-width"] = "100%"
   end
   def h_style_may_break_between_rows
-    @sd["style:table-properties"]["style:may-break-between-rows"] = 
+    @sd["style:table-properties"]["style:may-break-between-rows"] =
       "false" if !!(@snr =~ / tp_o_unbreakable /)
   end
   def h_style_keep_with_next
@@ -787,9 +787,9 @@ class BasicContentFrame < BasicHelper
     @sd[:parent_style_name] = $aodp_sn_ef if !!(@snr =~ / cft_example /)
   end
   def h_style_vertical_pos
-    @sd["style:graphic-properties"]["style:vertical-pos"] = "top" 
-    @sd["style:graphic-properties"]["style:vertical-rel"] = "baseline" 
-    @sd["style:graphic-properties"]["text:anchor-type"] = "paragraph"
+    @sd["style:graphic-properties"]["style:vertical-pos"] = "from-top"
+    @sd["style:graphic-properties"]["style:vertical-rel"] = "paragraph-content"
+    @sd["style:graphic-properties"]["text:anchor-type"] = "paragraph" 
     @sd["style:graphic-properties"]["style:flow-with-text"] = "true" 
     @sd["style:graphic-properties"]["style:wrap"] = "none" 
   end
@@ -909,7 +909,6 @@ class BasicTocInlineQuoted < BasicHelper
     @sd[:parent_style_name] = $aodp_sn_toc_dots_space_page_number if !!(@snr =~ / dots_space_page_number /)
   end
 end
-
 
 class BasicPreambleFirstParagraph < BasicHelper
   def h_parent_style_name
