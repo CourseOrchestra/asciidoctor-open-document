@@ -1,4 +1,4 @@
-- sectnumlevels = @document.attributes["sectnumlevels"] || 3
+- sectnumlevels = (@document.attributes["sectnumlevels"] || 3).to_i
 - unless sections.empty?
   - toclevels ||= (document.attr 'toclevels', 3).to_i
   - slevel = section_level sections.first
