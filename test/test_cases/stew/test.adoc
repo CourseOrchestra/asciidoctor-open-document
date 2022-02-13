@@ -276,7 +276,7 @@ Third point (not sub) continuation. For example some large paragraph, that descr
 [.landscape]
 == A Test Section 1 (landscape)
 
-Example of _italic_, *bold*, ~subscript~, ^superscript^, #simply marked#, [small]#small text# and `monospaced`.
+Example of _italic_, *bold*, ~subscript~, ^superscript^, #simply marked#, [small]#small text#, [big]#big text#, [underline]#underlined text#, and `monospaced`.
 
 Example of inline break +
 next string
@@ -285,7 +285,7 @@ Example of informal table with no vertical lines.
 
 [frame=topbot, grid=rows]
 |===
-|a1 a|b1 [small]#small in table#
+|a1 a|b1 [small]#small in table# [underline]#underlined in table#
 |a2 |b2
 |a3 |b3
 |a4 |b4
