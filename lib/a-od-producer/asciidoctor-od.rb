@@ -32,8 +32,11 @@ $aodp_sn_span_subscript = "Subscript"
 $aodp_sn_span_superscript = "Superscript"
 $aodp_sn_span_mark = "Mark"
 $aodp_sn_span_monospaced = "Source_20_Text"
-$aodp_sn_span_unquted_small = "Small"
-$aodp_sn_span_unquted_table_small = "Table_20_Small"
+$aodp_sn_span_unquoted_small = "Small"
+$aodp_sn_span_unquoted_table_small = "Table_20_Small"
+$aodp_sn_span_unquoted_big = "Big"
+$aodp_sn_span_unquoted_table_big = "Table_20_Big"
+$aodp_sn_span_unquoted_underline = "Underline"
 $aodp_sn_list_arabic = "Numbering_20_123"
 $aodp_sn_list_decimal = "Numbering_20_dec"
 $aodp_sn_list_loweralpha = "Numbering_20_abc"
@@ -581,9 +584,11 @@ class BasicInlineQuoted < BasicHelper
     if type != "unquoted"
       @sd[:parent_style_name] = eval("$aodp_sn_span_#{type}")
     else
-      if !!(@snr =~ / small /)
-        @sd[:parent_style_name] = $aodp_sn_span_unquted_small
-        @sd[:parent_style_name] = $aodp_sn_span_unquted_table_small if !!(@snr =~ / in_cell_[0-9] /)
+      ['small', 'big', 'underline'].each do |unquoted_type|
+        if !!(@snr =~ / #{unquoted_type} /)
+          @sd[:parent_style_name] = eval("$aodp_sn_span_unquoted_#{unquoted_type}")
+          @sd[:parent_style_name] = eval("$aodp_sn_span_unquoted_table_#{unquoted_type}") if !!(@snr =~ / in_cell_[0-9] /)
+        end
       end
     end
   end
