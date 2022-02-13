@@ -402,7 +402,7 @@ class BasicPropSetSorter < BasicHelper
     !!(@sn =~ /^adoc_tca[ ]/) end
   def h_basic_header; BasicSectionHeader.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_s[ ]/) end
-  def h_basic_inline_quoted; BasicInlineQuoted.new(@sn, @sd) if 
+  def h_basic_inline_quoted; BasicInlineQuoted.new(@sn, @sd) if
     !!(@sn =~ /^adoc_iq[ ]/) end
   def h_basic_list_caption; BasicListCaption.new(@sn, @sd) if 
     !!(@sn =~ /^adoc_lca[ ]/) end
@@ -587,7 +587,8 @@ class BasicInlineQuoted < BasicHelper
       ['small', 'big', 'underline'].each do |unquoted_type|
         if !!(@snr =~ / #{unquoted_type} /)
           @sd[:parent_style_name] = eval("$aodp_sn_span_unquoted_#{unquoted_type}")
-          @sd[:parent_style_name] = eval("$aodp_sn_span_unquoted_table_#{unquoted_type}") if !!(@snr =~ / in_cell_[0-9] /)
+          @sd[:parent_style_name] = eval("$aodp_sn_span_unquoted_table_#{unquoted_type}") if
+            !!(@snr =~ / in_cell_[0-9] /) and ['small', 'big'].include? unquoted_type
         end
       end
     end
