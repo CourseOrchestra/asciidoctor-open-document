@@ -101,4 +101,4 @@ ruby [path to script]/a-od-producer.rb -i [prelimenary content file] -o [final f
 There is a wrapper `a-od-out` in docker image. It just runs ruby with `a-od-producer.rb`.
 //end::usage[]
 
-More details can be found in https://courseorchestra.github.io/asciidoctor-open-document/[Open Document backend for Asciidoctor documentation].
+*More details* can be found in https://courseorchestra.github.io/asciidoctor-open-document/[Open Document backend for Asciidoctor documentation].
