@@ -1,4 +1,4 @@
-= Open Document backend for Asciidoctor
+= Open Document converter for Asciidoctor
 :toc: left
 
 == About
@@ -27,10 +27,8 @@ include::../lib/a-od-producer/asciidoctor-od.rb[tag = algorithm_description, lev
 audio
 dlist
 inline_button
-inline_indexterm
 inline_kbd
 inline_menu
-listing
 open
 page_break
 pass
@@ -42,9 +40,9 @@ verse
 video
 ----
 
-=== Backend variables
+=== Converter variables
 
-Backend variables are set as global variables. They start with `def` prefix.
+Converter variables are set as global variables. They start with `def` prefix.
 
 They can now be overriden only in custom library, but the ability to set them as document attributes is in the TODO-list.
 
