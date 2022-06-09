@@ -1,11 +1,11 @@
 image::https://github.com/CourseOrchestra/asciidoctor-open-document/workflows/build/badge.svg[link=https://github.com/CourseOrchestra/asciidoctor-open-document/actions?query=workflow%3A"build"]
 
-= Open Document backend for Asciidoctor
+= Open Document converter for Asciidoctor
 
 == About
 
 //tag::about[]
-Open Document backend for Asciidoctor allows to convert asciidoc documentation into fodt (plain Open Document) format. It relies on https://docs.asciidoctor.org/home/[Asciidoctor project].
+Open Document converter for Asciidoctor allows to convert asciidoc documentation into fodt (plain Open Document) format. It relies on https://docs.asciidoctor.org/home/[Asciidoctor project].
 
 Fodt file may be converted with https://www.libreoffice.org/[LibreOffice] SDK or CLI into pdf, odt, docx, doc etc.
 
@@ -17,7 +17,7 @@ Examples (built automatically as a part of CI routine):
 * https://courseorchestra.github.io/asciidoctor-open-document/test.pdf[pdf file];
 * https://courseorchestra.github.io/asciidoctor-open-document/test.docx[docx file] -- yes, sometimes messy, but generally not so bad and there is always a possibility to simplify conversion rules and tailor them to the needs of the exact project.
 
-The asciidoctor-open-document backend can be extended in the following ways:
+The asciidoctor-open-document converter can be extended in the following ways:
 
 * custom fodt template. Allows to customize paragraph properties, text properties, page properties (orientation, header, footer and like), list properties, table properties. Custom fodt template can contain title page or any before/after content;
 * custom slim templates;
@@ -101,4 +101,4 @@ ruby [path to script]/a-od-producer.rb -i [prelimenary content file] -o [final f
 There is a wrapper `a-od-out` in docker image. It just runs ruby with `a-od-producer.rb`.
 //end::usage[]
 
-*More details* can be found in https://courseorchestra.github.io/asciidoctor-open-document/[Open Document backend for Asciidoctor documentation].
+*More details* can be found in https://courseorchestra.github.io/asciidoctor-open-document/[Open Document converter for Asciidoctor documentation].
