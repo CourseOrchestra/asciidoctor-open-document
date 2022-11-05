@@ -4,8 +4,9 @@ RUN apk add --no-cache \
     build-base \
     libxml2-dev \
     ruby-dev \
- && rm -rf /var/cache/apk/* \
- && gem install --no-document \
+    openjdk11 \
+    && rm -rf /var/cache/apk/* \
+    && gem install --no-document \
     fastimage \
     nokogiri \
     minitest \
