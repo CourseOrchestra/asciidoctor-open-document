@@ -2,3 +2,4 @@ target/
 .*.sw*
 .idea
 Gemfile.lock
+todo*
