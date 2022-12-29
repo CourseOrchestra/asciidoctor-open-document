@@ -10,8 +10,6 @@ cp test/test_cases/stew target -r
 echo build image
 build/build_image.sh
 
-docker run --rm curs/asciidoctor-od cat /usr/local/a-od/slim/image_frame.fodt.slim
-
 echo build README.adoc
 docker run --rm -v $(pwd):/documents/ -w /documents/ curs/asciidoctor-od asciidoctor docs/a-od-basic-doc.adoc -o target/out/index.html
 
