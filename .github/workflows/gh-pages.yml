@@ -33,6 +33,6 @@ jobs:
       - name: Push
         if: success() && github.ref == 'refs/heads/main'
         run: |
-          docker push curs/asciidoctor-od:v1
+          docker push curs/asciidoctor-od:latest
 
 
