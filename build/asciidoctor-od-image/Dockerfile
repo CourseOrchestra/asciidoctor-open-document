@@ -17,7 +17,7 @@ RUN set -xe \
         curl icu-libs unzip zlib-dev musl \
         mesa-gl mesa-dri-swrast \
         libreoffice libreoffice-base libreoffice-lang-uk \
-        ttf-freefont ttf-opensans ttf-ubuntu-font-family ttf-inconsolata \
+        ttf-freefont ttf-opensans ttf-inconsolata \
 	ttf-liberation ttf-dejavu \
         libstdc++ dbus-x11 \
     && echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
