@@ -2,7 +2,7 @@
 cd "$(dirname "$0")"
 cd ..
 
-cat /usr/local/a-od/slim/image_frame.fodt.slim
+cat lim/slim/image_frame.fodt.slim
 
 rm target -rf
 mkdir target
