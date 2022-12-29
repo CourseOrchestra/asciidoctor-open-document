@@ -1,6 +1,10 @@
-- images_dir = "#{@document.attributes['imagesdir'] || '.'}/"
+- require 'open-uri'
 - require 'base64'
 - require 'fastimage'
+- images_dir = "#{@document.attributes['imagesdir'] || '.'}/"
+- re = /https?:\/\/.*/
+- if !!(utarget =~ re)
+  - images_dir = ""
 - re = /^data:image\/([a-z]+);base64,(.*)$/
 - if !!(utarget =~ re)
   - enc = utarget.match(re)[2]
@@ -9,6 +13,9 @@
   - enc = Base64.encode64(open("#{images_dir}#{utarget}") { |io| io.read })
   - type = FastImage.type("#{images_dir}#{utarget}")
 - x_y_array = FastImage.size("data:image/#{type};base64,#{enc}")
+- if x_y_array.nil?
+  - puts "ERROR: File #{utarget} is broken"
+  - x_y_array = [1,1]
 - image_style += " ip_x2y_#{x_y_array[0]}x#{x_y_array[1]}"
 - if @attributes.key?("width")
   - image_width = (attr :width).dup.gsub "%", "_prc" unless (attr :width).nil?
