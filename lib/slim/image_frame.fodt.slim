@@ -11,7 +11,7 @@
   - enc = utarget.match(re)[2]
   - type = utarget.match(re)[1]
 - else
-  - enc = Base64.encode64(URI.open("#{images_dir}#{utarget}") { |io| io.read })
+  - enc = Base64.encode64(open("#{images_dir}#{utarget}") { |io| io.read })
   - type = FastImage.type("#{images_dir}#{utarget}")
 - x_y_array = FastImage.size("data:image/#{type};base64,#{enc}")
 - if x_y_array.nil?
