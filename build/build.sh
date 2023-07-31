@@ -18,10 +18,7 @@ docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor
 docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od a-od-out -c /usr/local/a-od/a-od-my/my-cp-example.rb -i pre.xml -o test.fodt_
 
 #tag::pdf_convert[]
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f fodt test.fodt_
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f pdf test.fodt_
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f odt test.fodt_
-docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od unoconv -f docx test.fodt_
+docker run --rm -v $(pwd):/documents/ -w /documents/target/stew curs/asciidoctor-od java -jar /usr/local/a-od/lo-kts-converter.main.jar -f fodt,pdf,odt,docx -i test.fodt_
 #end::pdf_convert[]
 
 cp target/stew/test.* target/out
