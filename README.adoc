@@ -65,12 +65,11 @@ docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od a-od-out -c /usr/local
 +
 Here the custom library is used. It contains examples of custom features: positioning equation number, paragraph alignment role, code highlighting, positioning admonitions inside of the list element.
 
-* Convert fodt to pdf, odt, docx etc.
+* Convert fodt to pdf, odt, docx
 +
 ----
-docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od unoconv -f pdf test.fodt
+docker run --rm -v $(pwd):/documents/ curs/asciidoctor-od java -jar /usr/local/a-od/lo-kts-converter.main.jar -f pdf,odt,docx -i test.fodt
 ----
-+ Instead of pdf any format supported by Libre Office is possible.
 
 === As a ruby script
 
