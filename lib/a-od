@@ -18,7 +18,7 @@ fi
 
 a-od-pre -r asciidoctor-mathematical -r asciidoctor-diagram $file_name -b fodt -o pre.xml
 a-od-out -i pre.xml -o ${file_name%.*}.fodt_ $template_key $custom_lib
-unoconv -f $2 ${file_name%.*}.fodt_
+java -jar lo-kts-converter.main.jar -f $2 -i ${file_name%.*}.fodt_
 
 rm pre.xml
 rm ${file_name%.*}.fodt_

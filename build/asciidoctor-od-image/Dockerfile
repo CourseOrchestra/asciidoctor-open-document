@@ -15,7 +15,6 @@ RUN apk add --no-cache \
 RUN set -xe \
     && apk add --no-cache --purge -uU \
         curl icu-libs unzip zlib-dev musl \
-        mesa-gl mesa-dri-swrast \
         libreoffice libreoffice-base libreoffice-lang-uk \
         ttf-freefont ttf-opensans ttf-inconsolata \
 	ttf-liberation ttf-dejavu \
@@ -26,13 +25,6 @@ RUN set -xe \
     && apk add --no-cache -U \
 	ttf-font-awesome ttf-mononoki ttf-hack \
     && rm -rf /var/cache/apk/* /tmp/*
-
-
-ENV UNO_URL https://raw.githubusercontent.com/dagwieers/unoconv/master/unoconv
-
-RUN curl -Ls $UNO_URL -o /usr/local/bin/unoconv \
-  && chmod +x /usr/local/bin/unoconv \
-  && ln -s /usr/bin/python3 /usr/bin/python
 
 COPY . /usr/local/a-od/
 ENV PATH="/usr/local/a-od:${PATH}"
