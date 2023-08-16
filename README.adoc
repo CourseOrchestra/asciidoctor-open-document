@@ -1,6 +1,11 @@
+:toc: macro
+:toclevels: 4
+
 image::https://github.com/CourseOrchestra/asciidoctor-open-document/workflows/build/badge.svg[link=https://github.com/CourseOrchestra/asciidoctor-open-document/actions?query=workflow%3A"build"]
 
 = Open Document converter for Asciidoctor
+
+toc::[]
 
 == About
 
