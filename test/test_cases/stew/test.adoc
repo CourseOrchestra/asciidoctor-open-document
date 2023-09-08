@@ -216,6 +216,9 @@ image::60x20-label.svg[fitrect="170x250mm", svgunit="mm"]
 .Spring slush
 image::rasputicza.jpg[width=100%]
 
+.Image form URI
+image::https://habrastorage.org/webt/zh/nm/-y/zhnm-ybyd4wrl7i6wnxdxnm_ki8.png[width=100%]
+
 == Vertical image test
 
 Both images should look the same way in browser (10%), but differently in odt.
