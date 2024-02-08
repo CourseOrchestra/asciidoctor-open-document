@@ -8,7 +8,7 @@
     =captioned_title
 table:table table:name = "table" table:style-name = "adoc_t #{table_style}"
   - @columns.each do |col|
-      table:table-column table:style-name = 'adoc_tc tcp_rcw_#{(col.attr :width)}'
+      table:table-column table:style-name = 'adoc_tc tcp_rcw_#{(col.attr :width)} '
   - [:head].select {|tblsec| !@rows[tblsec].empty? }.each do |tblsec|
     table:table-header-rows
       include table_section.fodt.slim
