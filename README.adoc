@@ -50,6 +50,12 @@ General syntax of `a-od` is:
 a-od [file] [output format] [custom fodt temlate] [custom conversion library]
 ----
 
+To use asciidoctor cli options add `--asciidoctor` at the end and any asciidoctor cli options. For example, to convert `foo.adoc` to pdf with revision number `v5` use:
+
+----
+a-od foo.adoc pdf --asciidoctor -a revnumber=v5
+----
+
 ==== Or step by step without `a-od`
 
 * Convert adoc to preliminary Open Document content file
