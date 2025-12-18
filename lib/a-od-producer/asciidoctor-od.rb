@@ -249,6 +249,24 @@ class StyleSubstitutor
       end
     end
   end
+
+  def h_remove_whitespace_after_line_breaks
+    # Find all text nodes that immediately follow a text:line-break element
+    # and remove leading whitespace from them
+    line_breaks = @pre.xpath("//text:line-break",
+              'text' => 'urn:oasis:names:tc:opendocument:xmlns:text:1.0')
+    
+    line_breaks.each do |line_break|
+      # Get the next sibling node
+      next_sibling = line_break.next_sibling
+      
+      # If the next sibling is a text node, remove leading whitespace
+      if next_sibling && next_sibling.is_a?(Nokogiri::XML::Text)
+        # Remove leading whitespace (spaces, tabs, newlines) from the beginning of the text
+        next_sibling.content = next_sibling.content.gsub(/\A\s+/, '')
+      end
+    end
+  end
 end
 
 =begin
